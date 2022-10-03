@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  jupyter:
+    image: jupyter/scipy-notebook:python-3.10.6 # Mac M1 chips: jupyter/scipy-notebook:aarch64-python-3.10.6
+    container_name: jupyter
+    ports:
+      - 8888:8888
+    volumes:
+      - ./notebooks:/home/jovyan
+    command: start-notebook.sh --NotebookApp.token='' # do not do this in production
