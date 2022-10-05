@@ -9,4 +9,5 @@ You need to create 2 DAGs:
     Save the users from the csv file into a SQL table.
     Calculate the average of the users.
     Use branching to alert whether the average age of the users is increasing or decreasing compared to previous execution.
-
+    HINT: [video on sensors](https://www.youtube.com/watch?v=gSdy3Jxk75k)
+    
