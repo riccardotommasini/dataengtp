@@ -1,0 +1,11 @@
+.obsidian
+.obsidian/*
+./todos
+
+out.md
+out.markdown
+
+*.slide.md
+SLIDES.md
+
+obsidian.css

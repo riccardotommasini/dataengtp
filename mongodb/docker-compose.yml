@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  mongo:
+    image: mongo
+    ports:
+        - 27017:27017
+        - 27018:27018
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 
+      MONGO_INITDB_ROOT_PASSWORD: 
+  notebook:
+    build: notebook/
+    ports:
+      - 8888:8888
+    volumes:
+       - ./:/home/jovyan/work/data
+    environment:
+      - GRANT_SUDO=yes
+      
