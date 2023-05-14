@@ -1,7 +1,3 @@
----
-share: true
-title: Readme
----
 # Data Engineering
 
 The course aims at giving an overview of Data Engineering foundational concepts. It is tailored for 1st and 2nd year Msc students and PhDs who would like to strengthen their fundamental understanding of Data Engineering, i.e., Data Modelling, Collection, and Wrangling.
@@ -20,8 +16,6 @@ The course was originally held in different courses at Politecnico di Milano by 
 - [Fabiano Spiga](mailto:),  (Practices)
 - [Mohamed Ragab](https://bigdata.cs.ut.ee/mohamed-ragab), (Practices)
 - [Hassan Eldeeb](mailto:hassan.eldeeb@ut.ee) (Practices)
-
-
 
 ## Learning Goals
 
@@ -74,7 +68,7 @@ The interaction with the aforementioned systems is via python using Jupyter note
 
 ### Challenge Based Learning
 
-The cours follows a challenge based learning approach. In particular, each system is approached independently with a uniform interface (python API). The students main task is to build a pipelines managed by [Apache Airflow](../Apache%20Airflow.md) that integrates 3/5 of the presented systems. The course schedule **does not** include an explanation on how such integration should be done. Indeed, it is up for each group to figure out how to do it, if developing a custom operator or scheduling scripts or more. The students are then encouraged to discuss their approach and present the limitations.
+The cours follows a challenge based learning approach. In particular, each system is approached independently with a uniform interface (python API). The students main task is to build a pipelines managed by [Apache Airflow](./Apache%20Airflow.md) that integrates 3/5 of the presented systems. The course schedule **does not** include an explanation on how such integration should be done. Indeed, it is up for each group to figure out how to do it, if developing a custom operator or scheduling scripts or more. The students are then encouraged to discuss their approach and present the limitations.
 
 ## Prerequisites
 
