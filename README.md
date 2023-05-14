@@ -85,28 +85,28 @@ The cours follows a challenge based learning approach. In particular, each syste
 
 # Syllabus
 
-🖐️ = Practice
-📓 = Lecture
+P = Practice
+L = Lecture
 
-- Into: Who is the Data Engineer + Data Lifecycle (📓)
-- Docker Fundamentals (🖐️)
-- Data Modelling (📓) 
+- Into: Who is the Data Engineer + Data Lifecycle (L)
+- Docker Fundamentals (P)
+- Data Modelling (L) 
 	- ER (basics)
 	- Dimensional Modelling and Star Schema (basics)
-	- Data Formats: JSON, CSV, Avro, Parquet (🖐️)
-- Data Orchestrations and Data Pipelines (📓) 
-	- Apache Airflow (🖐️)
-- Data Wrangling and Cleansing  (📓) 
-	-  Pandas (🖐)
-- Data Ingestion and Document Databases (📓) 
-	- MongoDB  (🖐)
-- Caching and  Key-Value Stores (📓) 
-	- Redis or RocksDB  (🖐)
-- Querying: (📓) 
-	- Postgres or SQLLite (🖐)
-- Advanced Querying: Wide Columns Stores and Graph Databases  (📓) 
+	- Data Formats: JSON, CSV, Avro, Parquet (P)
+- Data Orchestrations and Data Pipelines (L) 
+	- Apache Airflow (P)
+- Data Wrangling and Cleansing  (L) 
+	-  Pandas (P)
+- Data Ingestion and Document Databases (L) 
+	- MongoDB  (P)
+- Caching and  Key-Value Stores (L) 
+	- Redis or RocksDB  (P)
+- Querying: (L) 
+	- Postgres or SQLLite (P)
+- Advanced Querying: Wide Columns Stores and Graph Databases  (L) 
 	- Cassandra or DuckDB
-	- Neo4J or Memgraph  (🖐)
+	- Neo4J or Memgraph  (P)
 
 
 ### Evaluation
