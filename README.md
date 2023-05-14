@@ -4,7 +4,12 @@ The course aims at giving an overview of Data Engineering foundational concepts.
 
 ## Origin and Design
 
-The course was originally held in different courses at Politecnico di Milano by Emanuele Della Valle and Marco Brambilla. The first issue as a unified journey into the data world dates back to 2020 at the University of Tartu by Riccardo Tommasini, and where it is still held by professor Ahmed Awad (course LTAT.02.007). At the same time, the course was adopted by INSA Lyon as OT7 (2022) and PLD "Data"
+The course was originally held in different courses at Politecnico di Milano (🇮🇹) by Emanuele Della Valle and Marco Brambilla. The first issue as a unified journey into the data world dates back to 2020 at the University of Tartu (🇪🇪) by Riccardo Tommasini, and where it is still held by professor Ahmed Awad (course LTAT.02.007). At the same time, the course was adopted by INSA Lyon (🇫🇷) as OT7 (2022) and PLD "Data"
+
+![logo tartu](https://upload.wikimedia.org/wikipedia/en/3/39/Tartu_%C3%9Clikool_logo.svg)
+![logo polimi](http://datascience.deib.polimi.it/wp-content/uploads/2016/02/polimi-logo.png)
+
+![logo insa](https://www.edarabia.com/wp-content/uploads/2018/02/insa-lyon-villeurbanne-france.jpg)
 
 ## Contributors
 
@@ -17,9 +22,11 @@ The course was originally held in different courses at Politecnico di Milano by 
 - [Mohamed Ragab](https://bigdata.cs.ut.ee/mohamed-ragab), (Practices)
 - [Hassan Eldeeb](mailto:hassan.eldeeb@ut.ee) (Practices)
 
+
+
 ## Learning Goals
 
-Students of this course will obtain two sets of skills: one that is deeply technical and necessarily technologically biased, one that is more abstract (soft) yet essential to build the professional figure that fits in a data team. 
+ Students of this course will obtain two sets of skills: one that is deeply technical and necessarily technologically biased, one that is more abstract (soft) yet essential to build the professional figure that fits in a data team. 
 
 ### Soft Skills
 
@@ -68,7 +75,7 @@ The interaction with the aforementioned systems is via python using Jupyter note
 
 ### Challenge Based Learning
 
-The cours follows a challenge based learning approach. In particular, each system is approached independently with a uniform interface (python API). The students main task is to build a pipelines managed by [Apache Airflow](./Apache%20Airflow.md) that integrates 3/5 of the presented systems. The course schedule **does not** include an explanation on how such integration should be done. Indeed, it is up for each group to figure out how to do it, if developing a custom operator or scheduling scripts or more. The students are then encouraged to discuss their approach and present the limitations.
+The cours follows a challenge based learning approach. In particular, each system is approached independently with a uniform interface (python API). The students main task is to build a pipelines managed by [Apache Airflow](../Apache%20Airflow.md) that integrates 3/5 of the presented systems. The course schedule **does not** include an explanation on how such integration should be done. Indeed, it is up for each group to figure out how to do it, if developing a custom operator or scheduling scripts or more. The students are then encouraged to discuss their approach and present the limitations.
 
 ## Prerequisites
 
@@ -79,28 +86,28 @@ The cours follows a challenge based learning approach. In particular, each syste
 
 # Syllabus
 
-P = Practice
-L = Lecture
+🖐️ = Practice
+📓 = Lecture
 
-- Into: Who is the Data Engineer + Data Lifecycle (L)
-- Docker Fundamentals (P)
-- Data Modelling (L) 
+- Into: Who is the Data Engineer + Data Lifecycle (📓)
+- Docker Fundamentals (🖐️)
+- Data Modelling (📓) 
 	- ER (basics)
 	- Dimensional Modelling and Star Schema (basics)
-	- Data Formats: JSON, CSV, Avro, Parquet (P)
-- Data Orchestrations and Data Pipelines (L) 
-	- Apache Airflow (P)
-- Data Wrangling and Cleansing  (L) 
-	-  Pandas (P)
-- Data Ingestion and Document Databases (L) 
-	- MongoDB  (P)
-- Caching and  Key-Value Stores (L) 
-	- Redis or RocksDB  (P)
-- Querying: (L) 
-	- Postgres or SQLLite (P)
-- Advanced Querying: Wide Columns Stores and Graph Databases  (L) 
+	- Data Formats: JSON, CSV, Avro, Parquet (🖐️)
+- Data Orchestrations and Data Pipelines (📓) 
+	- Apache Airflow (🖐️)
+- Data Wrangling and Cleansing  (📓) 
+	-  Pandas (🖐)
+- Data Ingestion and Document Databases (📓) 
+	- MongoDB  (🖐)
+- Caching and  Key-Value Stores (📓) 
+	- Redis or RocksDB  (🖐)
+- Querying: (📓) 
+	- Postgres or SQLLite (🖐)
+- Advanced Querying: Wide Columns Stores and Graph Databases  (📓) 
 	- Cassandra or DuckDB
-	- Neo4J or Memgraph  (P)
+	- Neo4J or Memgraph  (🖐)
 
 
 ### Evaluation
@@ -113,7 +120,7 @@ L = Lecture
 
 # Books
 
-- Database System Concepts 7th Edition Avi Silberschatz Henry F. Korth S. Sudarshan McGraw-Hill ISBN 9780078022159
+ Database System Concepts 7th Edition Avi Silberschatz Henry F. Korth S. Sudarshan McGraw-Hill ISBN 9780078022159
   - [Table of contents](https://www.db-book.com/db7/toc-dir/toc.pdf)
   - [slides](https://www.db-book.com/db7/slides-dir/index.html)
 -  The Data Warehouse Toolkit - The Definitive Guide to Dimensional Modeling Third Edition  Ralph Kimball Margy Ross
