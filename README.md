@@ -1,8 +1,4 @@
----
-test: "test"
----
-
-# Data Engineering
+# Foundation of Data Engineering
 
 The course aims at giving an overview of Data Engineering foundational concepts. It is tailored for 1st and 2nd year Msc students and PhDs who would like to strengthen their fundamental understanding of Data Engineering, i.e., Data Modelling, Collection, and Wrangling.
 
