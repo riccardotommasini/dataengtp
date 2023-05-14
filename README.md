@@ -1,4 +1,8 @@
-# Foundation of Data Engineering
+---
+share: true
+title: Readme
+---
+# Data Engineering
 
 The course aims at giving an overview of Data Engineering foundational concepts. It is tailored for 1st and 2nd year Msc students and PhDs who would like to strengthen their fundamental understanding of Data Engineering, i.e., Data Modelling, Collection, and Wrangling.
 
@@ -78,3 +82,47 @@ The cours follows a challenge based learning approach. In particular, each syste
 - SQL and Relational Databases
 - Python
 - Java (basics)
+
+# Syllabus
+
+🖐️ = Practice
+📓 = Lecture
+
+- Into: Who is the Data Engineer + Data Lifecycle (📓)
+- Docker Fundamentals (🖐️)
+- Data Modelling (📓) 
+	- ER (basics)
+	- Dimensional Modelling and Star Schema (basics)
+	- Data Formats: JSON, CSV, Avro, Parquet (🖐️)
+- Data Orchestrations and Data Pipelines (📓) 
+	- Apache Airflow (🖐️)
+- Data Wrangling and Cleansing  (📓) 
+	-  Pandas (🖐)
+- Data Ingestion and Document Databases (📓) 
+	- MongoDB  (🖐)
+- Caching and  Key-Value Stores (📓) 
+	- Redis or RocksDB  (🖐)
+- Querying: (📓) 
+	- Postgres or SQLLite (🖐)
+- Advanced Querying: Wide Columns Stores and Graph Databases  (📓) 
+	- Cassandra or DuckDB
+	- Neo4J or Memgraph  (🖐)
+
+
+### Evaluation
+
+- Multiple Choice Questions (30%)
+- Project (60%)
+- Presentation (10%)
+
+[Latest Course Issue](https://www.riccardotommasini.com/courses/2022-10-03-dataeng-insa-ot/)
+
+# Books
+
+ Database System Concepts 7th Edition Avi Silberschatz Henry F. Korth S. Sudarshan McGraw-Hill ISBN 9780078022159
+  - [Table of contents](https://www.db-book.com/db7/toc-dir/toc.pdf)
+  - [slides](https://www.db-book.com/db7/slides-dir/index.html)
+-  The Data Warehouse Toolkit - The Definitive Guide to Dimensional Modeling Third Edition  Ralph Kimball Margy Ross
+- [Designing Data-Intensive Applications - Martin Kleppmann ](https://dataintensive.net/)
+-  [Designing Event-Driven Systems](https://www.oreilly.com/library/view/designing-event-driven-systems/9781492038252/)
+-  [Graph Databases](https://neo4j.com/graph-databases-book/)
