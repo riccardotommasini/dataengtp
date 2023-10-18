@@ -74,16 +74,16 @@ Regarding the technological stack of the course, modulo the choice of the lectur
 	 - Neo4J
 
 
-The interaction with the aforementioned systems is via python using Jupyter notebooks. The environment is powered by [[Docker]] and orchestrated using [[Docker Compose]]. 
+The interaction with the aforementioned systems is via Python using Jupyter notebooks. The environment is powered by [[Docker]] and orchestrated using [[Docker Compose]]. 
 
 
-### Challenge Based Learning
+### Challenge-Based Learning
 
-The cours follows a challenge based learning approach. In particular, each system is approached independently with a uniform interface (python API). The students main task is to build a pipelines managed by [Apache Airflow](../Apache%20Airflow.md) that integrates 3/5 of the presented systems. The course schedule **does not** include an explanation on how such integration should be done. Indeed, it is up for each group to figure out how to do it, if developing a custom operator or scheduling scripts or more. The students are then encouraged to discuss their approach and present the limitations.
+The course follows a challenge-based learning approach. In particular, each system is approached independently with a uniform interface (python API). The student's main task is to build pipelines managed by [Apache Airflow](../Apache%20Airflow.md) that integrates 3/5 of the presented systems. The course schedule **does not** include an explanation of how such integration should be done. Indeed, it is up for each group to figure out how to do it, if developing a custom operator or scheduling scripts or more. The students are then encouraged to discuss their approach and present their limitations.
 
 ## Prerequisites
 
-- Git and Github
+- Git and GitHub
 - SQL and Relational Databases
 - Python
 - Java (basics)
@@ -93,7 +93,7 @@ The cours follows a challenge based learning approach. In particular, each syste
 🖐️ = Practice
 📓 = Lecture
 
-- Into: Who is the Data Engineer + Data Lifecycle (📓)
+- Intro Who is the Data Engineer + Data Lifecycle (📓)
 - Docker Fundamentals (🖐️)
 - Data Modelling (📓) 
 	- ER (basics)
@@ -108,11 +108,16 @@ The cours follows a challenge based learning approach. In particular, each syste
 - Caching and  Key-Value Stores (📓) 
 	- Redis or RocksDB  (🖐)
 - Querying: (📓) 
-	- Postgres or SQLLite (🖐)
+	- Postgres or SQLite (🖐)
 - Advanced Querying: Wide Columns Stores and Graph Databases  (📓) 
 	- Cassandra or DuckDB
 	- Neo4J or Memgraph  (🖐)
 
+### Use the following command to download all the necessary images
+
+```
+docker-compose -f docker-compose.for.pull.yml pull
+```
 
 ### Evaluation
 
