@@ -18,40 +18,29 @@ first_dag = DAG(
     catchup=False,
 )
 
-task_one = BashOperator(
+task_one = DummyOperator(
     task_id='get_spreadsheet',
-    dag=first_dag,
-    bash_command="curl https://www.lutemusic.org/spreadsheet.xlsx --output /opt/airflow/dags/{{ds_nodash}}.xlsx",
+    dag=first_dag
 )
 
-task_two = BashOperator(
+task_two = DummyOperator(
     task_id='transmute_to_csv',
-    dag=first_dag,
-    trigger_rule='all_success',
-    bash_command="xlsx2csv /opt/airflow/dags/{{ds_nodash}}.xlsx > /opt/airflow/dags/{{ds_nodash}}_correct.csv"
-)
+    dag=first_dag)
 
-task_three = BashOperator(
+task_three = DummyOperator(
     task_id='time_filter',
-    dag=first_dag,
-    trigger_rule='all_success',
-    bash_command="awk -F, 'int($31) > 1588612377' /opt/airflow/dags/{{ds_nodash}}_correct.csv > /opt/airflow/dags/{{ds_nodash}}_correct_filtered.csv",
-
+    dag=first_dag
 )
 
-task_four = BashOperator(
+task_four = DummyOperator(
     task_id='load',
-    dag=first_dag,
-    trigger_rule='all_success',
-    bash_command="echo \"loaded\""
+    dag=first_dag
 )
 
 
-task_five = BashOperator(
+task_five = DummyOperator(
     task_id='cleanup',
-    dag=first_dag,
-    bash_command="rm /opt/airflow/dags/{{ds_nodash}}_correct.csv /opt/airflow/dags/{{ds_nodash}}_correct_filtered.csv /opt/airflow/dags/{{ds_nodash}}.xlsx",
-    )
+    dag=first_dag)
 
 
 task_one >> task_two >> task_three >> task_four >> task_five
