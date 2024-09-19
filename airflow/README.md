@@ -31,14 +31,14 @@ mkdir -p ./dags ./logs ./plugins
 
 And this **once**:
 ```sh
-docker-compose up airflow-init
+docker compose up airflow-init
 ```
 If the exit code is 0 then it's all good.
 
 ### Running
 
 ```sh
-docker-compose up
+docker compose up
 ```
 
 After it is up, add a new connection:
