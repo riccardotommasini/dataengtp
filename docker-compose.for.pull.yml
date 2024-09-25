@@ -11,5 +11,7 @@ services:
     image: redis:latest
   postgres:
     image: postgres:13
+  ubuntu:
+    image: ubuntu
   notebook:
-    build: notebook/  
+    build: notebook/
