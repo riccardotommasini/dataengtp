@@ -58,7 +58,7 @@ x-airflow-common: &airflow-common
     AIRFLOW__CORE__LOAD_EXAMPLES: "false"
     AIRFLOW_HOME: "/opt/airflow"
     AIRFLOW__CORE_dags_folder: "/opt/airflow/dags"
-    AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_authm,airflow.api.auth.backend.session"
+    AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session"
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
   volumes:
     - ./dags:/opt/airflow/dags
