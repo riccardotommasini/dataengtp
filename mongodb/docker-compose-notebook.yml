@@ -19,7 +19,7 @@ services:
       - type: volume
         source: MONGO_CONFIG
         target: /data/configdb
-  client:
+  mongo-express:
     image: mongo-express:latest
     container_name: mongo-express
     environment:
