@@ -1,6 +1,39 @@
-## PreLab
+## Mongo DB Practice
+
+The practice works in Docker using Docker Compose.
+
+You can run it either Locally (as we saw in the docker lecture) or with [Github Codespace](https://30daysof.github.io/data-science-day/week-2/1-codespaces/)
+
+### Locally
+
+- Pull the latest version of this repository
+- cd into the mongodb folder
+- run docker compose
+  - you can use Visualstudio Code
+  - you can use a dockerised installation of Jupyter
+  - in the compose there is also a mongo express client container to visualise the content of the database. Accessible locally on port 8081
+  
+### CodeSpace
+
+Open Codespace as indicated in the images below (use the main branch).
+And run docker in the codespace. From here on is the same as locally.
+
+![codespaces](codespaces-howto.png)
+
+![visualstudio](codespaces-visualstudio.png)
+
+### Using Visual Studio
+
+``` docker compose up -d ```
+
+### Launchign with Jupyter Lab (in browser)
+
+``` docker compose -f docker-compose-notebook.yml up -d```
 
 
+## Legacy
+
+Here there are the instruction in case you would like to install mongo locally without docker.
 
 ### Windows users:
 

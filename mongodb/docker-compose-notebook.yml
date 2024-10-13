@@ -19,12 +19,14 @@ services:
       - type: volume
         source: MONGO_CONFIG
         target: /data/configdb
-  mongo-express:
+  client:
     image: mongo-express:latest
     container_name: mongo-express
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: admin
       ME_CONFIG_MONGODB_ADMINPASSWORD: admin
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin
       ME_CONFIG_MONGODB_SERVER: mongo
       ME_CONFIG_MONGODB_PORT: "27017"
     ports:
@@ -33,7 +35,15 @@ services:
       - MONGO
     depends_on:
       - mongo
-
+  notebook:
+    build: notebook/
+    ports:
+      - 8888:8888
+    volumes:
+       - ./:/home/jovyan/work/data
+    environment:
+      - GRANT_SUDO=yes
+      
 networks:
   MONGO:
     name: MONGO
