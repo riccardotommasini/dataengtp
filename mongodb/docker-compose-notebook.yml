@@ -43,6 +43,8 @@ services:
        - ./:/home/jovyan/work/data
     environment:
       - GRANT_SUDO=yes
+    networks:
+      - MONGO
       
 networks:
   MONGO:
