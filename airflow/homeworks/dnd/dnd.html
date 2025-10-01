@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title></title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <p>Kristiine, a regular Estonian woman, is a multifaceted person. On regular weekdays she spends most of her time at boring consultancy company X working as a Java Engineer.</p>
+<p>Last week, during a surely very interesting project, she had a wakeup call after attempting to implement  the <code>AbstractSingletonProxyFactoryBean</code> class.</p>
+<p>That wakeup call made her realise that she ought to focus on what truly brings her joy, the Dungeons &amp; Dragons friday evenings she has with her mates.</p>
+<p>While playing D&amp;D with her friends she noticed that every time someone died during the session <s>as in, in the roleplaying, not in real life :D</s> or whenever a new adventure was started, they'd waste a couple of hours trying to create new characters.</p>
+<p>Seeing that creating characters was a chore, she thought that it'd be a good idea to routinely generate simple permutations of basic characters.</p>
+<p>After thinking it through, she came down to this spec:</p>
+<ul>
+<li>The generated characters should be simple, and of low level(up to including 3)</li>
+<li>The process should happen once a week, before friday evening's sessions</li>
+<li>The characters should be added to a single table, on the airflow table at the given postgres database, with the following format(everything is varchar).</li>
+</ul>
+<ol>
+<li>name*</li>
+<li>attributes*</li>
+<li>race*</li>
+<li>languages*</li>
+<li>class*</li>
+<li>profficiency_choices*</li>
+<li>level*</li>
+<li>spells*</li>
+</ol>
+<ul>
+<li>name - You can generate <strong>any</strong>
+names. Preferably you should just consume from a fake/random name generator apis out there, or even just name it &quot;Wizard-1&quot;, &quot;Wizard2&quot; and so on. In order to make your life easier, python package <code>faker</code> is included.</li>
+<li>Attributes - varchar containing:</li>
+<li>
+<ul>
+<li>(strength(integer from 6-18)
+, dexterity(integer from 2-18)
+, constitution(integer from 2-18)
+, intelligence(integer from 2-18)
+, wisdom(integer from 2-18)
+, charisma(integer from 2-18)) for instance: &quot;[16, 12, 10, 6, 10, 14]&quot;</li>
+</ul>
+</li>
+<li>Spells - the maximum learnable spell level is 2, so, when picking your random spells make sure to check their level. Also, do not pick spells which are not know by those in your class. Some classes, like fighter, don't cast spells at all. In order to keep things simple, the number of spells to be selected should be of level + 3</li>
+<li>Proficiencies and languages - make sure to use the INDEX not the name. remember, it's always easier to add anything to a database if it's lower case, spaceless and comma-less.</li>
+<li>Languages: any.</li>
+</ul>
+<p>In order to get it done she asked you, a bright student taking the Data Engineering class, to define the dataflow, and, as mentioned previously that, once a week, in her database, there have to be 5 generated characters ready for her less-fortunate session peers to use.</p>
+<p>Tips and minimal expectations:</p>
+<p>read the docs of the API that we will use. It's very simple and didatic, no objects are deeply nested: <a href="https://www.dnd5eapi.co/docs/">https://www.dnd5eapi.co/docs/</a></p>
+<p>You should not need to use anything other than what has been given in class, airflow-wise.</p>
+<p>You are <strong>not</strong> allowed to modify the docker image in any way. Even adding new packages. Work with what has been given and nothing else. Calling external <strong>public</strong> APIs is ok, as long as they are safe and not require any sort of authentication.</p>
+<p>Try to make it so that each node does the minimum amount of work as it is reasonable i.e don't delegate more than one task per node.</p>
+<p>The minimum number of nodes of each type that you are required to have are:</p>
+<p>Dummy operators: 2 The end node must be a dummy one with <code>none_failed</code> as a <code>trigger rule.</code>
+Python operators: 4
+Branch Python operators: 1
+Postgres operator: 1</p>
+
+            
+            
+        </body>
+        </html>

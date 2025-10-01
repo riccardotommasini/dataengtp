@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Brief intro</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h2 id="brief-intro">Brief intro</h2>
+<p>Hello and welcome to this Airflow tutorial.</p>
+<p>The main point is to introduce you to the quintessential aspects of Airflow in a very practical way, with docker.</p>
+<p>A readme with instructions on how to get everything up and running without docker will be provided, but no support, at all, will be given.</p>
+<p>I very-ultra-mega-giga-tera-peta highly recommend you to not attempt to install airflow locally.</p>
+<p>git clone from this repo, cd to it's folder in your machine and read the readme: <a href="https://github.com/brurucy/airflow-training-public">https://github.com/brurucy/airflow-training-public</a></p>
+<p>now, click <a href="localhost:8080/">here</a> in order to get to the airflow GUI.</p>
+<hr>
+<h2 id="what-is-airflow">What is Airflow?</h2>
+<p>Let us start by defining airflow on a more meta level, since despite the fact that it sounds very simple, dataflow orchestrator, it doesn't give a proper clue on what it actually does.</p>
+<p>Airflow is an intermediate-level tool, that is, it expects you to have some experience with pretty much all data engineering steps, since it's essentially a glue over all of them.</p>
+<p>One important thing to take notice is that no data processing happens in airflow, so there's no <s>need for</s> fault tolerance on anything whatsover.</p>
+<p>The dataflow is organized as a DAG, Directed Acyclic Graph, with data engineering tasks as nodes, and dependency relationships with edges. Dependency relationships are simple to grasp. If task 1 depends on task 2, then task 2 has to succeed, however, &quot;success&quot; doesn't have to mean that it has been succesfully completed. It can mean that it hasn't been skipped, for instance.</p>
+<p>Acyclicity might be the dataflow's least obvious aspect. It has to be an acyclic graph because it cannot handle situations in which tasks might have complex or ambiguous cycles, such as when two tasks might be co dependent and their resolution isn't clear.</p>
+<hr>
+<h2 id="what-can-and-cant-it-do">What can and can't it do?</h2>
+<p>In short, Airflow allows you to define data engineering workflows as a DAG. These workflows can have tasks that are run in a specified time and in parallel.</p>
+<p>Airflow does not provide any built-in workflow versioning, it does not have anything specific or special for streaming tasks nor any tools for actually dealing with data in any way.</p>
+<p>The reason as to why Airflow does not support streaming is that there are no obvious behavior rules that could be set so that the airflow scheduler could deterministically check if it has been completed or not.</p>
+<h2 id="airflow-architecture">Airflow architecture</h2>
+<p>Airflow has three main components:</p>
+<ul>
+<li>Web server - nice GUI with access to the logs and most of Airflow's functionality, such as stopping and clearning DAGs.</li>
+<li>Scheduler - Puts the DAGs to action by coordinating the work to be done</li>
+<li>Workers - do the job assigned by the scheduler.</li>
+</ul>
+<h2 id="the-dag---i">The DAG - I</h2>
+<p>DAGs are written entirely in Python, and have a considerable number of idiosyncrasies. In fact, I'd go as far as to warn anyone thinking of dabbling with airflow to skip the documentation and go straight for the source code. It is very understandable and self explanatory.</p>
+<p>The first thing to do is to instance the dag. A common practice is to declare a dictionary with default arguments such as start date, concurrency and schedule interval.</p>
+<p>For instance:</p>
+<pre><code class="language-python">
+default_args_dict = {
+    <span class="hljs-string">&#x27;start_date&#x27;</span>: airflow.utils.dates.days_ago(<span class="hljs-number">0</span>),
+    <span class="hljs-string">&#x27;concurrency&#x27;</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-string">&#x27;schedule_interval&#x27;</span>: <span class="hljs-literal">None</span>,
+    <span class="hljs-string">&#x27;retries&#x27;</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-string">&#x27;retry_delay&#x27;</span>: datetime.timedelta(minutes=<span class="hljs-number">5</span>),
+}
+
+first_dag = DAG(
+    dag_id=<span class="hljs-string">&#x27;first_dag&#x27;</span>,
+    default_args=default_args_dict,
+    catchup=<span class="hljs-literal">False</span>,
+)
+</code></pre>
+<p>An important, and of questionable design, part of airflow, is the relationship between the start date and the schedule interval.</p>
+<p>For instance, just by looking at the code, when do you expect the first task run to happen once you start the dag?</p>
+<p>If you thought it would <strong>start</strong> at the moment of <strong>start</strong>_date, you thought wrong~~, haha~~, for as it will actually start on start_date + schedule_interval.</p>
+<p>There are <s>more than 8000 thousand</s> many questions on stack overflow about this quirkiness, so, don't join them.</p>
+<p>Another critical aspect is of catchup. In case you tried to run a DAG, for the first time, with a start date of let's say, 1 month ago, and a schedule interval of 5 minutes, then airflow would generate 8640 runs, which is the amount of 5 minute intervals within a month.</p>
+<p>This is very relevant because at some point, you will surely turn the DAG off for whatever reason; Maybe the ETL process inscribed unto it is wrong, needs changing or whatever.</p>
+<p>In case you didn't put <code>catchup=False</code> you will be in for a treat next time you start it, since airflow will re-run the DAG for <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> schedule intervals between when you turned it off and the moment of turning it on again. It's easy to see as to how this could become a massive disaster. An example would be of having a DAG task that boots up a generic vm in order to do some processing in it. It could lead to an insane number of vms being booted up that would surely cost a lot of <s>dollars, euros, pounds, pesos or whatever your currency is</s> money.</p>
+<p>Let's say that you are a very clever person with extrasensory capabilities and turned catchup off. Now, your tech lead has decided to completely change the etl process, and asked you to migrate not only the dag, but all data that has passed through it. <s>believe me or not, this happens much more often than you'd expect</s></p>
+<p>Since you turned catchup off, there are no shanenigans you can pull off that would result in the dag being rerun as you wanted.</p>
+<p>Luckily, airflow has a recipe for that, and it's called backfilling. You can call the command <code>backfill -s START_DATE -e END_DATE dag_id</code> from the cli, and it will rerun any dag with the specified dates, and that way you can very effortlessly satisfy your tech lead's needs.</p>
+<h2 id="the-dag---ii">The DAG - II</h2>
+<p>Most of the stuff in default_args will be propagated to all tasks. A more real-life-and-non-trivial example of what could be in default args are callbacks.</p>
+<p>Let's say that you would like to be warned in case <s>shit</s> something bad happens. Maybe a very important ETL process is contained in there, and no downtime, at all, is acceptable.</p>
+<p>So you decide to implement a <code>slack webhook callback</code> where your bot will take the airflow context, at the time of failure, and then post it on a channel, possibly waking you up in the middle of your beauty sleep.</p>
+<p>We can define it, very simply, as follows:</p>
+<pre><code class="language-python">default_args = {
+    <span class="hljs-string">&#x27;owner&#x27;</span>: <span class="hljs-string">&#x27;airflow&#x27;</span>,
+    <span class="hljs-string">&#x27;start_date&#x27;</span>: datetime.datetime(<span class="hljs-number">2020</span>, <span class="hljs-number">8</span>, <span class="hljs-number">7</span>, <span class="hljs-number">12</span>, <span class="hljs-number">10</span>, <span class="hljs-number">5</span>),
+    <span class="hljs-string">&#x27;retries&#x27;</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-string">&#x27;on_failure_callback&#x27;</span>: task_fail_slack_alert,
+}
+</code></pre>
+<p>With a message somehow like this:</p>
+<pre><code class="language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">task_fail_slack_alert</span>(<span class="hljs-params">context</span>):
+    slack_msg = <span class="hljs-string">&quot;&quot;&quot;
+            :red_circle: Task Failed &lt;@U01735GUB9C&gt;
+            *Task*: {task}  
+            *Dag*: {dag} 
+            *Execution Time*: {exec_date}  
+            *Log Url*: {log_url} 
+            &quot;&quot;&quot;</span>.<span class="hljs-built_in">format</span>(
+        task=context.get(<span class="hljs-string">&#x27;task_instance&#x27;</span>).task_id,
+        dag=context.get(<span class="hljs-string">&#x27;task_instance&#x27;</span>).dag_id,
+        ti=context.get(<span class="hljs-string">&#x27;task_instance&#x27;</span>),
+        exec_date=context.get(<span class="hljs-string">&#x27;execution_date&#x27;</span>),
+        log_url=context.get(<span class="hljs-string">&#x27;task_instance&#x27;</span>).log_url,
+    )
+</code></pre>
+<p>In this case we take only one argument: context.</p>
+<p>The task context is a magical element that is always available during runtime, and allows access to multiple variables such as the <strong>task</strong> execution date, the previous task execution date and statuses about the run. It is especially useful during callbacks and logging.</p>
+<p>We could send the message to slack with the following bit of code, that would also be within the <code>task_fail_slack_alert</code> function:</p>
+<pre><code class="language-python">failed_alert = SlackWebhookOperator(
+        task_id=<span class="hljs-string">&#x27;slack_failure_alert&#x27;</span>,
+        http_conn_id=<span class="hljs-string">&#x27;slack_connection&#x27;</span>,
+        message=slack_msg,
+        username=<span class="hljs-string">&#x27;airflow&#x27;</span>,
+        icon_url=<span class="hljs-string">&#x27;https://airflow.apache.org/_images/pin_large.png&#x27;</span>,
+        channel=<span class="hljs-string">&#x27;#airflow-warnings&#x27;</span>,
+        dag=dag)
+    <span class="hljs-keyword">return</span> failed_alert.execute(context=context)
+</code></pre>
+<p>Do not try to understand everything that is going on, since operators were not introduced yet, however, believe me, that all we are doing is defining a task, that accesses Slack's incoming webhooks API, and then executing this task.</p>
+<p>An important, and non-trivial fact, is that the airflow <code>context</code> leans heavily on the usage of closures, so attention must be paid in order for the code to not look too unpythonic or cryptic. It's also worth pointing out that callbacks must always be given as function objects. Do not put () there.</p>
+<h2 id="the-dag---iii">The DAG - III</h2>
+<p>Recapping our first DAG's default_args_dict definition:</p>
+<pre><code class="language-python">default_args_dict = {
+    <span class="hljs-string">&#x27;start_date&#x27;</span>: airflow.utils.dates.days_ago(<span class="hljs-number">0</span>),
+    <span class="hljs-string">&#x27;concurrency&#x27;</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-string">&#x27;schedule_interval&#x27;</span>: <span class="hljs-literal">None</span>,
+    <span class="hljs-string">&#x27;retries&#x27;</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-string">&#x27;retry_delay&#x27;</span>: datetime.timedelta(minutes=<span class="hljs-number">5</span>),
+}
+</code></pre>
+<p>The start date is defined in a weird way.</p>
+<p>We are calling the function <code>airflow.utils.dates.days_ago(0)</code> that dynamically gets the datetime and sets it to be the current date. Airflow has a series of utility functions that aid you with tasks that might require some more specific knowledge.</p>
+<p>In short, the <code>util.dates</code> series of functions translate the given datetime into crontab expressions.</p>
+<p>Cron is, probably, the first job scheduler for *nix systems, and airflow is very often used as a step-up for when cron jobs just don't cut anymore.</p>
+<p>Crontab is a file where we write commands for cron. It's similar in point to the DAG, which we must write so that the airflow scheduler can figure out the order, sequence and time to run the tasks.</p>
+<p>The catch is how dates are defined in cron, which isn't very intuitive, so, please take note of this <a href="https://crontab.guru/#0_0_*_*_*">website</a> that allows you to test out, and see, the logic of crontab's datetime mechanism.</p>
+<p>It's not considered to be good practice to use these <code>utils.dates</code> functions, since it's very easy to make non-obvious mistakes due to non-obvious behavior, due to how some things in airflow are called at runtime, and others at dag-load time.</p>
+<p>For instance, let's say that you want to run something with 1 week intervals, starting from today. Naively, you might use the <code>utils.dates.days_ago(0)</code> function, and set schedule_inteval to be 7 days long.</p>
+<p>Surprisingly, your dag will never actually run, since it'll never detect that a week-long interval has passed because <code>utils.dates.days_ago(0)</code> moves along the time, but the initial <code>utils.dates.days_ago(0) + schedule_interval</code> doesn't. This is very confusing, so, just trust me.</p>
+<p>Now, one of the least relevant, but still worth mentioning, tidbits about airflow, is how it uses the <a href="https://pendulum.eustace.io/docs/#introduction">pendulum</a> library. The only thing you need to know, is that Pendulum replaces python's datetime with more timezone-aware ones. It's completely drop in, so you will not notice anything.</p>
+<p>You might be wondering what's the point of being able to declare the schedule interval with <code>timedelta</code> instead of cron expressions, and the point is that cron expressions can be quite limiting. It's not a good idea to run airflow jobs with very small schedule intervals, such as subminute, but in case you want to do that, it is possible, just not with cron expressions.</p>
+<h2 id="the-dag---iv">The DAG - IV</h2>
+<p>Having all the basics about the DAG down, we can now check out other arguments which might be of use.</p>
+<ul>
+<li><code>max_active_runs</code>: maximum amount of concurrent dag runs. Let's say that you want to run some ETL process in 1 hour intervals, however the process itself might take slightly longer than 1 hour. You can postpone the next run to only start when the previous has been finished by setting <code>max_active_runs = 1</code></li>
+<li><code>is_paused_upon_creation</code>: when creating a dag and putting it in the dagbag, it is enabled by default. It's good to have in mind that that behavior can be modified.</li>
+<li><code>end_date</code>: everything that has a start, has an end. This argument is of <strong>utmost importance</strong> once you start to use Airflow in a very advanced level, and you generate DAGs dynamically. You do not want dynamically generated DAGs to be hovering around forever.</li>
+<li><code>orientation</code>: How would you want the graph view to be oriented? from left to right, default, right to left, up to down, and down to up.</li>
+<li><code>on_success_callback</code>: Maybe you want to make logs about successful tasks. Airflow already logs everything, so this might be kind of useless, nevertheless, this also allows you to ping some external API and pass some more specific <code>context</code> options.</li>
+</ul>
+<h2 id="operators---i">Operators - I</h2>
+<p>Having had a throughout view of the DAG, it is now time to populate it with nodes. Operators are the nodes of the dag, and represent tasks. Whenever we add a DAG to the dagbag, all declared operators go through a sanity check in order to affirm that the DAG has no cycles or odd constructs.</p>
+<p>The simplest, yet not useless, operator that there is, is the dummy:</p>
+<pre><code class="language-python">
+task_one = DummyOperator(
+    task_id=<span class="hljs-string">&#x27;get_spreadsheet&#x27;</span>,
+    dag=first_dag,
+    depends_on_past=<span class="hljs-literal">False</span>,
+)
+
+</code></pre>
+<p>Operators are declared similarly as dags, and only require two arguments at first:</p>
+<ul>
+<li><code>task_id</code> = unique id for the operator</li>
+<li><code>dag</code> = which dag does does this operator belong to?</li>
+</ul>
+<p>the <code>dag</code> argument might seem weird. We know that we write code to be run in airflow as a DAG, so shouldn't it be implicit that all operators within that file are within the defined DAG?</p>
+<p>Not really, because there can be sub-dags. Sub dags are dags within dags, and are considered a bad practice, due to one of Airflow's biggest painpoints: deadlocks.</p>
+<p>Deadlocks happen when some subprocess stops everything downstream of it in a very non-obvious way. This is quite an &quot;advanced&quot; level Airflow worry so there's no need for us to talk about it except from a high-level standpoint.</p>
+<p>Coming back to the dummy operator, it might seem that it does nothing. In fact, it indeed does nothing, within the context of whichever data processing might be happening, but it can be used to do two things:</p>
+<ul>
+<li>sketching a dag out</li>
+<li>trigger rule sorcery</li>
+</ul>
+<p>More often than not we would like to visualize an ETL process in the least time-wasting manner as possible. There are a dozen of ways you could do that, such as google docs, hand-written notes, paint, google slides and so on. A better way of doing it, would be of directly sketching things out on Airflow.</p>
+<p>At first, you can simply declare a bunch of dummy nodes with nothing but task ids in it:</p>
+<p><img src="file:///c:\Users\malik\Desktop\INSA 5A\Data engineering\dataengtp\airflow\graph_view_stub.png" alt="step-one"></p>
+<p>Now, we can set up some relationships. We want to show that the ETL process starts with <code>get_spreadsheet</code>, then its format is transmuted to a proper csv on <code>transmute_to_csv</code>, which is then filtered by time, <code>time_filter</code> to be loaded somewhere,<code>load</code>.</p>
+<p>The directed relationships are given by the edges, and are very easily defined as follows, written at the end of the DAG file:</p>
+<pre><code class="language-python">
+get_spreadsheet &gt;&gt; transmute_to_csv &gt;&gt; time_filter &gt;&gt; load
+
+</code></pre>
+<p>Will yield the following sequential configuration:</p>
+<p><img src="file:///c:\Users\malik\Desktop\INSA 5A\Data engineering\dataengtp\airflow\directed_graph_stub.png" alt="step-two"></p>
+<p>We can sketch virtually any combination of tasks which are runnable by airflow.</p>
+<p>Let's say that you have to create an ETL process entirely done in the cloud, and we define the following tasks:</p>
+<ul>
+<li><code>dataproc_start</code> - we use the google CreateDataProc operator in order to start a dataproc cluster that will be used to run pyspark scripts.</li>
+<li><code>submit_ingest_one</code> - next up we create a data processing step to submit a pyspark job that will ingest data from somewhere, and will also be processed further. However, we want to make it so that if this fails, then whatever comes next fails as well.</li>
+<li><code>submit_ingest_two, submit_ingest_three</code> - the same as <code>submit_ingest_one</code> except no other process depends on it</li>
+<li><code>coalesce</code> - after all tasks have finished their execution, we would like to turn off the cluster.</li>
+</ul>
+<p>We could define that with the following edge configuration:</p>
+<pre><code class="language-python">
+dataproc_start &gt;&gt; [dataproc_ingest_one, dataproc_ingest_two, dataproc_ingest_three]
+dataproc_ingest_one &gt;&gt; dataproc_create_clickout
+[dataproc_create_clickout, dataproc_ingest_two, dataproc_ingest_three] &gt;&gt; end
+
+</code></pre>
+<p>many-to-one or one-to-many relationships are encoded as lists, so you can put to code that many nodes have an edge to one node as follows:</p>
+<pre><code class="language-python">
+[node_1, node_2, node_3] &gt;&gt; node_4
+
+</code></pre>
+<p>and one to many:</p>
+<pre><code class="language-python">
+node_1 &gt;&gt; [node_2, node_3, node_4]
+
+</code></pre>
+<p><img src="file:///c:\Users\malik\Desktop\INSA 5A\Data engineering\dataengtp\airflow\etl_process_dataproc.png" alt="step-three-dataproc"></p>
+<p>A rule of thumb when dealing with airflow, is to not take things literally.</p>
+<p>The last argument in our operator definition is: <code>depends_on_past=False</code>. That's a very puzzling statement<s>given we live in a universe where our data is encoded, as far as I'm aware of, in 3 spatial dimensions and a single time one. Can Airflow break space-time?</s> which if taken literally, might make it seem that the current task will run without any regard to what happened upstream.</p>
+<p>In reality, it means that if it failed <strong>during the previous dag run</strong> then it won't run this time. This is important because, as we've seen, airflow can have overlapping dag runs.</p>
+<h2 id="trigger-rules">Trigger Rules</h2>
+<p>The second point that we talked about, joining, requires a proper understanding of airflow's last elementary aspect, Trigger rules. Trigger rules are, in airflow-speech, a name for how should the node at the end of the edge behave when some exit status comes out of its parents.</p>
+<p>We can see an example of that by coming back to <code>depends_on_past=False</code>. Our first assumption was that it would enable the node to carry on with the dag irrespective of its parents' runs being successes or failures. This sort of behavior is determined by trigger rules, and the default is to only proceed if all parents were successful.</p>
+<p>Let us define a non-dummy operator, that runs a bash command:</p>
+<pre><code class="language-python">
+task_one = BashOperator(
+    task_id=<span class="hljs-string">&#x27;get_spreadsheet&#x27;</span>,
+    dag=first_dag,
+    bash_command=<span class="hljs-string">&quot;curl http://www.gerbode.net/spreadsheet.xlsx --output /usr/local/airflow/data/{{ds_nodash}}.xlsx&quot;</span>,
+    depends_on_past=<span class="hljs-literal">False</span>,
+	trigger_rule=<span class="hljs-string">&#x27;all_success&#x27;</span>
+)
+
+
+</code></pre>
+<p>There's quite a lot to unpack here, but it does look similar to what we have seen before.</p>
+<ul>
+<li><code>bash_command</code>- in case you know bash, you have already figured it out that this works almost exactly as typing <code>bash -c &quot;some command&quot;</code></li>
+</ul>
+<p>Most of airflow's operators function in a similar way.</p>
+<ul>
+<li><code>PythonOperator</code> allows you to run Python code</li>
+<li><code>BashOperator</code> allows you to run shell scripts</li>
+<li><code>PostgreSQL</code> allows you to communicate with postgres instances.</li>
+</ul>
+<p>If you take a look at the bash command:</p>
+<pre><code class="language-bash">bash_command=<span class="hljs-string">&quot;curl http://www.gerbode.net/spreadsheet.xlsx --output /usr/local/airflow/data/{{ds_nodash}}.xlsx&quot;</span>
+</code></pre>
+<p>There's something weird.</p>
+<p>Let's take a closer look:</p>
+<pre><code class="language-bash">
+http://www.gerbode.net/spreadsheet.xlsx --output /usr/local/airflow/data/{{ds_nodash}}.xlsx
+
+</code></pre>
+<p>Even closer:</p>
+<pre><code>{{ds_nodash}}
+</code></pre>
+<p>That just doesn't look like actual bash.</p>
+<p>This happens to be either something that you will love, or hate.  That's <code>jinja2</code> templating, and it's absolutely inescapable from just about everything in python, so in case you plan to become a professional pythonista, I'd highly recommend you to becoming a <strong>jinja ninja</strong>.</p>
+<p>Nevertheless, all we need to know about jinja is that it allows us to access pretty much all runtime variables of airflow during runtime.</p>
+<p>Whenever a bash command is executing, it will access the <strong>airflow context</strong> object, and get the date of execution without dash.</p>
+<p>It'll turn it into something like this, before executing the command:</p>
+<pre><code class="language-bash">
+http://www.gerbode.net/spreadsheet.xlsx --output /usr/local/airflow/data/20200828.xlsx
+
+</code></pre>
+<p>There many variables that we can access from runtime with templating, such as:</p>
+<ul>
+<li>dag - the current dag object</li>
+<li>task - the current task object, as we've used in the slack example, where we got the logs, execution date and else.</li>
+<li>ds, execution date, next_ds execution dates. ds = current task execution date, previous task execution date, and next task execution date.</li>
+</ul>
+<p>Now that we understand how to use templating, it's time to back and add a trigger rule. Trigger rules can be added to any operator with the argument <code>trigger_rule</code>, and there are quite a couple for you to choose from, out of which the following are easily exemplified:</p>
+<ul>
+<li><code>all_success</code> - use this when you want everything to work in the most obvious way as possible, and whatever you are doing happens to be very linear.</li>
+<li><code>all_done</code> - this is very often used whenever there's a cluster start or end job. For instance, let's say that irrespective of the parent tasks status, given that they have finished their execution, you would like this task to run anyways. It's commonly used to shut down a cluster.</li>
+<li><code>none_failed</code> - is most often than not paired with the branching operator. Maybe you will need to send the data through a different path in the dag and thus it is acceptable to skip a chunk of it. If you want your dag execution to continue, you have to make it so that the parent tasks were either skipped or successfully completed.</li>
+<li><code>all_failed</code> - <s>pair this one up with a callback so you can notify yourself of getting fired</s></li>
+</ul>
+<h2 id="operators---ii">Operators - II</h2>
+<p>The last part we have to go over is both the briefest and most important, the Python Operator:</p>
+<pre><code class="language-python">
+task_one = PythonOperator(
+    task_id=<span class="hljs-string">&#x27;get_spreadsheet&#x27;</span>,
+    dag=second_dag,
+    python_callable=_get_spreadsheet,
+    op_kwargs={
+        <span class="hljs-string">&quot;output_folder&quot;</span>: <span class="hljs-string">&quot;/usr/local/airflow/data&quot;</span>,
+        <span class="hljs-string">&quot;epoch&quot;</span>: <span class="hljs-string">&quot;{{ execution_date.int_timestamp }}&quot;</span>,
+        <span class="hljs-string">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://www.gerbode.net/spreadsheet.xlsx&quot;</span>
+    },
+    trigger_rule=<span class="hljs-string">&#x27;all_success&#x27;</span>,
+    depends_on_past=<span class="hljs-literal">False</span>,
+)
+
+
+</code></pre>
+<p>At first it might seem very similar to the bash operator, having <code>task_id</code>, <code>dag</code>, <code>trigger_rule</code> and <code>depends_on_past</code>, as pretty much any other operator, but it also has something which resembles the very first slack operator example: it takes a function as an input.</p>
+<p>The python callable is where the python part of the python operator lies at, and it has a naming convention of adding underscore before the task_id:</p>
+<pre><code class="language-python">
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">_get_spreadsheet</span>(<span class="hljs-params">epoch, url, output_folder</span>):
+    request.urlretrieve(url=url, filename=<span class="hljs-string">f&quot;<span class="hljs-subst">{output_folder}</span>/<span class="hljs-subst">{epoch}</span>.xlsx&quot;</span>)
+
+</code></pre>
+<p>The callable's arguments are given by the <code>op_kwargs</code> dictionary.</p>
+<p>It's important to notice that you cannot use jinja templates inside the python callable. In fact, that's the whole point of op_kwargs. Not only does it allow you to specify the arguments to the callable, but also allows you to template these arguments.</p>
+<h2 id="appendex">Appendex</h2>
+<p>pg_connection_default:</p>
+<p>conn id: postgres_not_default</p>
+<p>conn type: Postgres</p>
+<p>host: postgres</p>
+<p>schema: postgres</p>
+<p>login: airflow</p>
+<p>password: airflow</p>
+<p>port: 5432</p>
+<p>crontab website:</p>
+<p><a href="https://crontab.guru/#0_0_*_*_">https://crontab.guru/#0_0_*_*_</a>*</p>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>

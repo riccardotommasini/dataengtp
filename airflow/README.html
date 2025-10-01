@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Table of contents</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h2 id="table-of-contents">Table of contents</h2>
+<ul>
+<li>What is Airflow?</li>
+<li>What's the point of Airflow?</li>
+<li>What can and can't it do?</li>
+<li>The Dag</li>
+<li>The Operators</li>
+<li>Trigger Rules</li>
+</ul>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>To have docker <em>and</em> docker-compose installed.</li>
+<li>Install docker and docker-compose exactly as it is described in the website.</li>
+<li><strong>do not do do apt install docker or docker-compose</strong></li>
+</ul>
+<h2 id="how-to-spin-the-webserver-up">How to spin the webserver up</h2>
+<h3 id="prepping">Prepping</h3>
+<p>First, get your <strong>id</strong>:</p>
+<pre><code class="language-sh"><span class="hljs-built_in">id</span> -u
+</code></pre>
+<p>Now edit the <strong>.env</strong> file and swap out 501 for your own.</p>
+<p>Run the following command to creat the volumes needed in order to send data to airflow:</p>
+<pre><code class="language-sh"><span class="hljs-built_in">mkdir</span> -p ./dags ./logs ./plugins
+</code></pre>
+<p>create JWT secret, using this <a href="https://jwtsecrets.com/">website</a>
+or look <a href="https://www.willhaley.com/blog/generate-jwt-with-bash/">here</a>.</p>
+<p>And run this <strong>once</strong>:</p>
+<pre><code class="language-sh">docker-compose up airflow-init
+</code></pre>
+<p>If the exit code is 0 then it's all good.</p>
+<h3 id="running">Running</h3>
+<pre><code class="language-sh">docker-compose up -d
+</code></pre>
+<h3 id="after-it-is-up-add-a-new-connection">After it is up, add a new connection</h3>
+<ul>
+<li>Name - postgres_default</li>
+<li>Conn type - postgres</li>
+<li>Host - localhost</li>
+<li>Port - 5432</li>
+<li>Database - airflow</li>
+<li>Username - airflow</li>
+<li>Password - airflow</li>
+</ul>
+<p><img src="file:///c:\Users\malik\Desktop\INSA 5A\Data engineering\dataengtp\airflow\imgs\connection1.png" alt="connection1"></p>
+<p><img src="file:///c:\Users\malik\Desktop\INSA 5A\Data engineering\dataengtp\airflow\imgs\connection2.png" alt="connection2"></p>
+<h2 id="practice">Practice</h2>
+<h2 id="first_dag--tutorial"><code>first_dag</code> — tutorial</h2>
+<p>A gentle, end-to-end walkthrough of modern Airflow 3.x patterns. It defines a DAG with a fixed <code>start_date</code>, <code>catchup=False</code>, and a linear chain that (1) fetches a file, (2) converts it, (3) filters it, (4) “loads” it, and (5) cleans up. It highlights current imports (from <code>airflow.providers.standard</code> where applicable), Jinja templating (e.g., <code>{{ ds_nodash }}</code> / <code>{{ data_interval_* }}</code>), retries, and trigger rules.</p>
+<p><strong>Steps</strong></p>
+<ol>
+<li>
+<p><strong>Prereqs:</strong> Airflow ≥ 3.x. Work in <code>first_dag_stub.py</code> into your <code>dags/</code> folder.</p>
+</li>
+<li>
+<p><strong>Imports:</strong> for the stubbed version, use only <code>EmptyOperator</code> from <code>airflow.providers.standard.operators.empty</code>.</p>
+</li>
+<li>
+<p><strong>Paths:</strong> examples use <code>/opt/airflow/data</code> (recommended). Adjust if your image uses another path.</p>
+</li>
+<li>
+<p><strong>Enable:</strong> Airflow UI → <em>DAGs</em> → toggle <strong>first_dag</strong> on.</p>
+</li>
+<li>
+<p><strong>Trigger:</strong> from UI</p>
+</li>
+<li>
+<p><strong>Observe:</strong> in Graph view you should see the chain
+<code>get_spreadsheet → transmute_to_csv → time_filter → load → cleanup</code>.</p>
+</li>
+<li>
+<p><strong>Logs:</strong> in <code>logs</code> folder, divided by tasks.</p>
+</li>
+</ol>
+<hr>
+<h2 id="second_dag--exercise-builds-on-the-tutorial"><code>second_dag</code> — exercise (builds on the tutorial)</h2>
+<p>An applied exercise that mirrors the tutorial’s structure but with richer control flow and database I/O. It demonstrates Python callables, branching, file artifacts, and executing SQL via the <strong>Common SQL</strong> operator against Postgres.</p>
+<p><strong>What it covers</strong></p>
+<ul>
+<li>
+<p>Modern DAG config (fixed <code>start_date</code>, <code>catchup=False</code>, <code>max_active_tasks</code>)</p>
+</li>
+<li>
+<p><code>PythonOperator</code>/<code>BranchPythonOperator</code> for branching</p>
+</li>
+<li>
+<p>Jinja macros based on the data interval</p>
+</li>
+<li>
+<p>Database writes using:</p>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> airflow.providers.common.sql.operators.sql <span class="hljs-keyword">import</span> SQLExecuteQueryOperator
+</code></pre>
+<p>with <code>conn_id=&quot;postgres_default&quot;</code> (do not forget to add Postgres connection)</p>
+</li>
+</ul>
+<p><strong>Steps</strong></p>
+<ol>
+<li>
+<p><strong>Prereqs:</strong> Airflow ≥ 3.x</p>
+</li>
+<li>
+<p><strong>Place the DAG:</strong> use <code>second_dag_stub.py</code> into <code>dags/</code>.</p>
+</li>
+<li>
+<p><strong>Configure connection:</strong> in the Airflow UI, create <strong>Connection</strong> <code>postgres_default</code> (Conn Type: <em>Postgres</em>).</p>
+</li>
+<li>
+<p>**Enable &amp; trigger from UI</p>
+</li>
+<li>
+<p><strong>Follow the flow:</strong> it branches after an “emptiness/spell” check; both transformation branches converge before running SQL.</p>
+</li>
+<li>
+<p><strong>Troubleshooting:</strong></p>
+<ul>
+<li>Import paths should use <strong>providers.standard</strong> for core operators in Airflow 3.x.</li>
+<li>If SQL can’t find files, pass SQL text via XCom (as in the advanced example below) or ensure the file is in <code>template_searchpath</code>.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="assignment_dag--extended-exercise-api--logging--db"><code>assignment_dag</code> — extended exercise (API + logging + DB)</h2>
+<p>This DAG turns the concepts into a realistic pipeline: it calls a public API (D&amp;D 5e), generates synthetic data, branches on runtime conditions, merges intermediate JSONs, and executes SQL against Postgres using <code>SQLExecuteQueryOperator</code>. It includes structured logging and a failure callback for clear console diagnostics.</p>
+<p><strong>Highlights</strong></p>
+<ul>
+<li>
+<p>Modern imports:</p>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> airflow.providers.standard.operators.python <span class="hljs-keyword">import</span> PythonOperator, BranchPythonOperator
+<span class="hljs-keyword">from</span> airflow.providers.standard.operators.empty <span class="hljs-keyword">import</span> EmptyOperator
+<span class="hljs-keyword">from</span> airflow.providers.common.sql.operators.sql <span class="hljs-keyword">import</span> SQLExecuteQueryOperator
+</code></pre>
+</li>
+<li>
+<p>Structured logging with <code>logging.getLogger(__name__)</code></p>
+</li>
+<li>
+<p>Robust API calls with timeouts</p>
+</li>
+<li>
+<p>Avoids “template file not found” by generating SQL in a Python task and passing it via XCom:</p>
+<pre><code class="language-python">tenth_node = SQLExecuteQueryOperator(
+    task_id=<span class="hljs-string">&quot;insert_inserts&quot;</span>,
+    conn_id=<span class="hljs-string">&quot;postgres_not_default&quot;</span>,
+    sql=<span class="hljs-string">&quot;{{ ti.xcom_pull(task_ids=&#x27;generate_sql&#x27;) }}&quot;</span>,
+    autocommit=<span class="hljs-literal">True</span>,
+)
+</code></pre>
+</li>
+</ul>
+<p><strong>Steps</strong></p>
+<ol>
+<li>
+<p><strong>Prereqs:</strong></p>
+<ul>
+<li>Airflow ≥ 3.x</li>
+<li>Providers: <code>apache-airflow-providers-common-sql</code>, <code>apache-airflow-providers-postgres</code></li>
+<li>Outbound network allowed to <code>https://www.dnd5eapi.co/api</code></li>
+<li>Airflow connection (create new database)<code>postgres_not_default</code> pointing to your DB</li>
+</ul>
+</li>
+<li>
+<p><strong>Paths:</strong> default artifact dir is <code>/opt/airflow/data</code>. Create it and ensure write perms.</p>
+</li>
+<li>
+<p><strong>Place the DAG:</strong> create file <code>assignment_dag.py</code> in <code>dags/</code>.</p>
+</li>
+<li>
+<p><strong>Enable &amp; trigger</strong>: UI</p>
+</li>
+<li>
+<p><strong>Execution order (happy path):</strong>
+<code>name_race → attributes → language → class → proficiency_choices → levels → spell_check → (spells?) → merge → generate_sql → insert_inserts → finale</code></p>
+</li>
+<li>
+<p><strong>Logging tips:</strong></p>
+<ul>
+<li>
+<p>Operator logs show <code>INFO</code>/<code>DEBUG</code> breadcrumbs and full tracebacks on failure.</p>
+</li>
+<li>
+<p>To increase verbosity globally:</p>
+<pre><code class="language-bash"><span class="hljs-comment"># docker-compose env</span>
+AIRFLOW__LOGGING__LOGGING_LEVEL=DEBUG
+</code></pre>
+<p>or set <code>[logging] logging_level = DEBUG</code> in <code>airflow.cfg</code>.</p>
+</li>
+</ul>
+</li>
+</ol>
+
+            
+            
+        </body>
+        </html>

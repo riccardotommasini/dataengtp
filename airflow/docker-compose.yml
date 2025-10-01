@@ -91,11 +91,14 @@ services:
   postgres:
     image: postgres:16
     environment:
-      POSTGRES_USER: airflow
-      POSTGRES_PASSWORD: airflow
-      POSTGRES_DB: airflow
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      PGUSER: ${POSTGRES_USER} # for the psql client
+      PGPASSWORD: ${POSTGRES_PASSWORD} # for the psql client
+      PGDATABASE: ${POSTGRES_DB} # for the psql client
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres-db-volume:/var/lib/postgresql/data
     healthcheck:
@@ -334,6 +337,15 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+
+  pgadmin:
+    container_name: pgadmin
+    image: elestio/pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "5050:80" # type localhost:5050 to your browser to access the UI
 
 volumes:
   postgres-db-volume:
