@@ -1,7 +1,0 @@
-name,attributes,race,languages,class,proficiency_choices,level,spells
-Sofia Jackson,"[13, 7, 10, 18, 8, 15]",gnome,"['common', 'gnomish']",barbarian,"['skill-athletics', 'skill-intimidation']",1,[]
-Margarita Cavazos,"[13, 8, 13, 5, 17, 15]",dragonborn,"['common', 'draconic']",fighter,"['skill-intimidation', 'skill-insight']",1,[]
-Snežana Terzić,"[9, 15, 3, 3, 12, 6]",half-elf,"['common', 'elvish']",warlock,"['skill-investigation', 'skill-nature']",1,[]
-Victoria Lambert,"[16, 6, 10, 10, 12, 9]",halfling,"['common', 'halfling']",monk,"['skill-acrobatics', 'skill-religion']",1,[]
-Eetu Anttila,"[11, 16, 16, 6, 13, 4]",halfling,"['common', 'halfling']",warlock,"['skill-religion', 'skill-arcana']",1,[]
-سارا كامياران,"[16, 13, 4, 2, 2, 6]",halfling,"['common', 'halfling']",druid,"['skill-survival', 'skill-perception']",1,[]
