@@ -50,7 +50,7 @@ docker-compose up -d
 
 * Name - postgres_default
 * Conn type - postgres
-* Host - localhost
+* Host - postgres
 * Port - 5432
 * Database - airflow
 * Username - airflow
