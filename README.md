@@ -136,3 +136,10 @@ docker-compose -f docker-compose.for.pull.yml pull
 - [Designing Data-Intensive Applications - Martin Kleppmann ](https://dataintensive.net/)
 -  [Designing Event-Driven Systems](https://www.oreilly.com/library/view/designing-event-driven-systems/9781492038252/)
 -  [Graph Databases](https://neo4j.com/graph-databases-book/)
+
+## FAQ
+
+- Q: What do I do if Docker on Windows is very slow?
+- A: check out [this](/docker.on.wsl.md)
+- Q: What do I do if I remain behind with the practice?
+- Q: Where can I find data for my project?
