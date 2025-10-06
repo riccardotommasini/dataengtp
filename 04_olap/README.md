@@ -8,23 +8,32 @@ In this session, we’ll shift to building an **analytical database** (OLAP) usi
 
 ## Table of Contents (with Time Management)
 
-- [1. Analytical Needs (5 min)](#1-analytical-needs)  
-- [2. Why Classical Data Modelling Does Not Work Well for Analytics (10 min)](#2-why-classical-data-modelling-does-not-work-well-for-analytics)  
-- [3. Dimensional Modeling Concepts (25 min)](#3-dimensional-modeling-concepts)  
-  - [3.1 Identifying the Business Process (5 min)](#31-identifying-the-business-process)  
-  - [3.2 Defining the Grain of the Fact Table (5 min)](#32-defining-the-grain-of-the-fact-table)  
-  - [3.3 Identifying Dimensions (5 min)](#33-identifying-dimensions)  
-  - [3.4 Surrogate Keys & SCD (5 min)](#34-surrogate-keys--scd)  
-  - [3.5 DimDate and DimTime (5 min)](#35-dimdate-and-dimtime)  
-- [4. Task: Star Schema & OLAP Queries (10 min)](#4-task-star-schema--olap-queries)  
-- [5. Environment Setup (5 min)](#5-environment-setup)  
-- [6. Implementing in PostgreSQL (20 min)](#6-implementing-in-postgresql)  
-- [7. Management Queries (20 min)](#7-management-queries)  
-  - [7.1 Daily and Monthly Sales by Store (5 min)](#71-daily-and-monthly-sales-by-store)  
-  - [7.2 Sales by Product Category (5 min)](#72-sales-by-product-category)  
-  - [7.3 Top-Selling Products and Suppliers (5 min)](#73-top-selling-products-and-suppliers)  
-  - [7.4 Average Basket Size (5 min)](#74-average-basket-size-number-of-products-per-purchase)  
-- [8. Handling Customer Moves in OLAP (10 min)](#8-handling-customer-moves-in-olap)  
+- [Practice 3: Dimensional Modeling \& Star Schema (Courtesy of  Hasan Tanvir, Kristo Raun, and Ahmed Wael )](#practice-3-dimensional-modeling--star-schema-courtesy-of--hasan-tanvir-kristo-raun-and-ahmed-wael-)
+  - [Table of Contents (with Time Management)](#table-of-contents-with-time-management)
+  - [1. Analytical Needs](#1-analytical-needs)
+  - [2. Why Classical Data Modelling Does Not Work Well for Analytics](#2-why-classical-data-modelling-does-not-work-well-for-analytics)
+  - [3. Dimensional Modeling Concepts](#3-dimensional-modeling-concepts)
+    - [3.1 Identifying the Business Process](#31-identifying-the-business-process)
+    - [3.2 Defining the Grain of the Fact Table](#32-defining-the-grain-of-the-fact-table)
+    - [3.3 Identifying Dimensions](#33-identifying-dimensions)
+    - [3.4 Surrogate Keys \& SCD](#34-surrogate-keys--scd)
+    - [3.5 DimDate and DimTime](#35-dimdate-and-dimtime)
+  - [4. Task: Star Schema \& OLAP Queries](#4-task-star-schema--olap-queries)
+    - [ER Model (from Practice 2 – OLTP)](#er-model-from-practice-2--oltp)
+    - [Star Schema (for OLAP)](#star-schema-for-olap)
+  - [5. Environment Setup](#5-environment-setup)
+  - [6. Implementing in PostgreSQL](#6-implementing-in-postgresql)
+    - [Example Schema](#example-schema)
+  - [](#)
+  - [6. Populate Dummy Data](#6-populate-dummy-data)
+  - [](#-1)
+  - [7. Management Queries](#7-management-queries)
+    - [7.1 Daily and Monthly Sales by Store](#71-daily-and-monthly-sales-by-store)
+    - [7.2 Sales by Product Category](#72-sales-by-product-category)
+    - [7.3 Top-Selling Products and Suppliers](#73-top-selling-products-and-suppliers)
+    - [7.4 Average Basket Size (Number of Products per Purchase)](#74-average-basket-size-number-of-products-per-purchase)
+  - [8. Handling Customer Moves in OLAP](#8-handling-customer-moves-in-olap)
+  - [9. Implement a Migration from OLTP Schema (Practice 03) to the new OLAP Scheam (Practice 04) using Airflow](#9-implement-a-migration-from-oltp-schema-practice-03-to-the-new-olap-scheam-practice-04-using-airflow)
 
 ___
 
@@ -394,4 +403,5 @@ Alice's new CustomerKey is 3 because Bob is 2.
 - New purchases after the move link to the new city.
 - This ensures analytics correctly reflects sales by location and customer history.
 
+## 9. Implement a Migration from OLTP Schema (Practice 03) to the new OLAP Scheam (Practice 04) using Airflow
 
