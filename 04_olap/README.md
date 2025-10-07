@@ -405,3 +405,8 @@ Alice's new CustomerKey is 3 because Bob is 2.
 
 ## 9. Implement a Migration from OLTP Schema (Practice 03) to the new OLAP Scheam (Practice 04) using Airflow
 
+To connect the postgres instance of this practice with the Airflow Practice use the following command
+
+```sh
+    docker network connect airflow_network db_olap 
+```

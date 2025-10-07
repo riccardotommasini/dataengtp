@@ -1,0 +1,12 @@
+numpy == 1.26.4
+
+
+pymongo
+redis
+py2neo
+
+rdflib
+
+pandasql
+
+psycopg2-binary

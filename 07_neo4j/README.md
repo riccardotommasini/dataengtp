@@ -21,7 +21,7 @@ And run docker in the codespace. From here on, it is the same as locally.
 
 ![codespaces](../codespaces-howto.png)
 
-![visualstudio](codespaces-visualstudio.png)
+![visualstudio](./figs/codespaces-visualstudio.png)
 
 ``` docker compose up -d ```
 

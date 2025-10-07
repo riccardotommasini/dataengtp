@@ -1,0 +1,51 @@
+[
+  {
+    "compressor": "NONE",
+    "id": "361ea6c6-d835-4d44-bcc7-7c566ba7bd32",
+    "host": "redis",
+    "port": 6379,
+    "name": "redis:6379",
+    "db": null,
+    "username": "default",
+    "password": null,
+    "connectionType": "STANDALONE",
+    "nameFromProvider": null,
+    "provider": "REDIS_COMMUNITY_EDITION",
+    "lastConnection": "2025-10-07T21:25:24.002Z",
+    "modules": [
+      {
+        "name": "vectorset",
+        "version": 1
+      },
+      {
+        "name": "timeseries",
+        "version": 80200,
+        "semanticVersion": "8.2.0"
+      },
+      {
+        "name": "search",
+        "version": 80201,
+        "semanticVersion": "8.2.1"
+      },
+      {
+        "name": "bf",
+        "version": 80200,
+        "semanticVersion": "8.2.0"
+      },
+      {
+        "name": "ReJSON",
+        "version": 80200,
+        "semanticVersion": "8.2.0"
+      }
+    ],
+    "tls": false,
+    "tlsServername": null,
+    "verifyServerCert": null,
+    "caCert": null,
+    "clientCert": null,
+    "ssh": null,
+    "sshOptions": null,
+    "forceStandalone": null,
+    "tags": []
+  }
+]
