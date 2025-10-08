@@ -9,7 +9,3 @@ services:
         - GRANT_SUDO=yes
       networks:
         - Practice
-
-networks:
-  Practice:
-    driver: bridge
