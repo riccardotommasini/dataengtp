@@ -28,4 +28,4 @@ services:
       - Practice
 networks:
   Practice:
-    name: otlp_network
+    name: oltp_network
