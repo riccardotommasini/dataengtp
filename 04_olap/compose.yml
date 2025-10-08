@@ -30,4 +30,4 @@ services:
       
 networks:
   Practice:
-    name: otlp_network
+    name: olap_network
