@@ -4,7 +4,7 @@ The practice works in Docker using Docker Compose.
 
 First of all, watch the video below.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/YV2ZPLjlnlA?si=93bJIBBSKvR2fMBu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+{% include ../youtube.html id="YV2ZPLjlnlA" %}
 
 Second, if your are not familiar with MongoDB, make yourself at easy following the [Practice Section.ipynb]([<Practice Section.ipynb>](http://localhost:8888/notebooks/work/data/Practice%20Section.ipynb) Notebook.
 
