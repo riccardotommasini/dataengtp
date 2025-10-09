@@ -20,7 +20,7 @@ And run docker in the codespace. From here on is the same as locally.
 
 ![codespaces](../codespaces-howto.png)
 
-![visualstudio](codespaces-visualstudio.png)
+![visualstudio](figs/codespaces-visualstudio.png)
 
 ### Using Visual Studio
 

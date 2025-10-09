@@ -4,7 +4,7 @@ Welcome to the second practice session! The goal of this exercise is to design a
 
 ## Table of Contents
 
-- [Practice 3: Supermarket Database - ER Diagram Design](#practice-3-supermarket-database---er-diagram-design)
+- [Practice 3: Supermarket Database - ER Diagram Design (Courtesy of  Hasan Tanvir, Kristo Raun, and Ahmed Wael )](#practice-3-supermarket-database---er-diagram-design-courtesy-of--hasan-tanvir-kristo-raun-and-ahmed-wael-)
   - [Table of Contents](#table-of-contents)
   - [Case Scenario: Supermarket Sales](#case-scenario-supermarket-sales)
     - [Operational Needs](#operational-needs)
@@ -28,6 +28,7 @@ Welcome to the second practice session! The goal of this exercise is to design a
     - [Task 5: Query Answering (30 mins)](#task-5-query-answering-30-mins)
     - [Task 6: Update the Database  (30 mins)](#task-6-update-the-database--30-mins)
     - [Wrap-up \& Discussion (15 mins)](#wrap-up--discussion-15-mins)
+    - [Migration Task](#migration-task)
 
 ## Case Scenario: Supermarket Sales
 
@@ -412,3 +413,11 @@ Congratulations, you have built a normalized operational database! Let's discuss
 - How many tables did you end up with? Why so many?
 - Imagine you are a manager who wants a report of the "Top 5 best-selling products this month". How many tables would you need to `JOIN` to get this information?
 - Is this database design good for generating business reports (analytics) or is it better for day-to-day transactions (operations)? Why?
+
+### Migration Task
+
+To connect the postgres instance of this practice with the Airflow Practice use the following command
+
+```sh
+    docker network connect airflow_network db_oltp 
+```

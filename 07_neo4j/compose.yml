@@ -1,0 +1,19 @@
+include:
+  - ../compose-notebook.yml 
+services:
+  neo:
+    image: neo4j
+    ports:
+        - "${NEO_UI_PORT}:7474"
+        - "${NEO_BOLT_PORT}:7687"
+    restart: always
+    environment:
+      - NEO4J_AUTH=${NEO4J_AUTH} # e.g. neo4j/test
+    volumes:
+      - ./neo4j/data:/data
+    networks:
+      - Practice
+
+networks:
+  Practice:
+    name: otlp_network

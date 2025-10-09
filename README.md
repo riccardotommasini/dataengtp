@@ -143,3 +143,19 @@ docker-compose -f docker-compose.for.pull.yml pull
 - A: check out [this](/docker.on.wsl.md)
 - Q: What do I do if I remain behind with the practice?
 - Q: Where can I find data for my project?
+
+
+### TODOS for Riccardo
+
+- [ ] add pgadmin config file loader
+- [ ] add link to connection in airflow
+- [ ] separte how to run in a specific file
+- [ ] add a document on repository structure
+- [ ] fix wrangling notebook
+- [ ] update pedagogical objectives across readme
+  - [x] MongoDB
+  - [ ] Readis
+  - [ ] Neo
+  - [ ] OLAP
+  - [ ] OLTP
+  - [ ] Airflow 

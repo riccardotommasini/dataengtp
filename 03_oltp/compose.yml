@@ -1,7 +1,6 @@
-
 services:
   db:
-    container_name: db
+    container_name: db_oltp
     image: postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -11,18 +10,22 @@ services:
       PGPASSWORD: ${POSTGRES_PASSWORD} # for the psql client
       PGDATABASE: ${POSTGRES_DB} # for the psql client
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT}:5432"
     volumes:
       # - ./pgdata:/var/lib/postgresql/data
       - ./pgtmp:/tmp
-
-
+    networks:
+      - Practice
   pgadmin:
-    container_name: pgadmin
+    container_name: pgadmin_oltp
     image: elestio/pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     ports:
-      - "5050:80" # type localhost:5050 to your browser to access the UI
-
+      - "${PGADMIN_PORT}:80" # type localhost:5050 to your browser to access the UI
+    networks:
+      - Practice
+networks:
+  Practice:
+    name: oltp_network

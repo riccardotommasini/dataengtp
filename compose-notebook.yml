@@ -1,0 +1,11 @@
+services:
+  notebook:
+      build: notebook/
+      ports:
+        - "8888:8888"
+      volumes:
+        - ./:/home/jovyan/work
+      environment:
+        - GRANT_SUDO=yes
+      networks:
+        - Practice
