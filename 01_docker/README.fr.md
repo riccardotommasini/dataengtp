@@ -1,113 +1,144 @@
-# Exercices : « containeriser » k8s-wordsmith-demo
+# Exerçons-nous à containeriser le projet wordsmith !
 
-Le projet k8s-wordsmith-demo est découpé en 3 parties :
+Le projet wordsmith est désormais découpé en 5 parties :
 
-- web : Serveur web en go, pour le frontend
-- words : REST API en Java permettant d'interroger la BDD
-- db : BDD PostgreSQL qui contient les mots à afficher
+- web : serveur web frontend écrit en Go
+- web2 : évolution Node.js de `web`, avec le même rôle principal mais une interface plus moderne et des interactions supplémentaires pilotées par LLM
+- words : API REST écrite en Java, qui interroge la base de données
+- db : base PostgreSQL contenant les mots à afficher
+- narrative (nouveau) : serveur REST Python qui utilise des LLM pour générer une histoire
 
-Le but de ces exercices est de « containeriser » cette application.
-Cela se fait en trois étapes :
+Notre objectif est de containeriser cette application.
 
-- écriture des Dockerfiles, afin de construire les images des containers
-- écriture du Compose file, afin de faire tourner l'application en dev
-- déploiement sur Kubernetes
+Il y aura 3 étapes :
 
+1. Écrire plusieurs Dockerfiles pour construire les images des conteneurs.
+   1. lancer les conteneurs indépendamment
+   2. les connecter sur le même réseau
+2. Écrire un fichier Compose pour automatiser certaines étapes (connexion)
+   1. ajouter un volume pour relier les fichiers statiques
+   2. ajouter un volume pour persister la base de données localement
+   3. améliorer le Dockerfile de `words` pour éviter des reconstructions Maven inutiles
+3. Faire évoluer l’application
+   1. laissez libre cours à votre créativité pour améliorer l’application
 
 ## Exercice 1 : Dockerfiles
 
-Le but de l'exercice est d'écrire les Dockerfiles pour les 3 containers.
+Notre objectif est d’écrire les Dockerfiles des services.
 
-Commencez par faire un `git clone` du projet. Vous allez devoir
-créer un Dockerfile pour chacun des 3 services. Nous conseillons
-de placer chaque Dockerfile dans le répertoire correspondant
-(web, words, db).
+Commencez par faire un `git clone` du dépôt. Vous allez devoir
+créer un Dockerfile pour chaque service. Astuce : placez chaque
+Dockerfile dans le répertoire correspondant (`web`, `words`, `db`, etc.).
 
-Les paragraphes suivants décrivent les instructions d'installation
+Les paragraphes suivants décrivent les instructions d’installation
 pour chaque service.
 
-Note: à ce stade, on veut seulement construire les images et vérifier
-qu'elles se lancent (`web` et `words` doivent afficher un bref message
-pour indiquer qu'ils tournent), mais on ne cherche pas à lancer
-l'application en entier ou à se connecter aux services.
+Note : dans ce premier exercice, nous voulons seulement construire les images
+et vérifier qu’elles démarrent correctement (`web`, `words` et `narrative`
+doivent afficher un court message indiquant qu’ils tournent), mais nous ne
+cherchons pas encore à lancer l’application complète ni à connecter les services.
 Cela viendra plus tard.
 
+### web (legacy UI)
 
-### web
+C’est un serveur web écrit en Go. Pour compiler du Go, on peut utiliser
+l’image officielle `golang`, ou bien installer les paquets Go dans
+n’importe quelle image de base officielle.
 
-C'est un serveur web en Go. Pour compiler du Go, on peut utiliser
-l'image `golang`, ou bien installer les paquetages Go dans
-n'importe quelle image de base.
-
-Tout le code est contenu dans un fichier
-source unique (`dispatcher.go`), et se compile de la manière suivante :
+Tout le code est contenu dans un unique fichier source (`dispatcher.go`)
+et se compile ainsi :
 
 ```
 go build dispatcher.go
 ```
 
-Cela produit un exécutable appelé `dispatcher`, qui se lance comme suit :
+Cela produit un exécutable nommé `dispatcher`, qui se lance comme suit :
 
 ```
 ./dispatcher
 Listening on port 80
 ```
 
-Le répertoire appelé `static` doit être dans le répertoire courant
-lors du lancement du serveur.
+Le serveur web doit pouvoir accéder au répertoire `static`. Ce répertoire
+doit être un sous-répertoire du répertoire courant au moment du lancement.
 
 Informations supplémentaires :
 
 - le serveur écoute sur le port 80
-- le compilateur go n'est plus nécessaire une fois le programme compilé
+- le compilateur Go n’est utile que pour la construction, pas pour l’exécution
 
+### web2
+
+`web2` est l’évolution Node.js du service `web` d’origine.
+Il conserve la même responsabilité principale que `web` : servir le frontend
+et proxyfier les requêtes vers les services backend. La différence est qu’il
+propose une interface plus moderne et peut appeler des API plus récentes,
+comme le service `narrative`, pour afficher du contenu généré par un LLM.
+
+Informations supplémentaires :
+
+- le serveur écoute sur le port 8000
+- il sert les fichiers statiques depuis `public`
+- il proxyfie les requêtes `/words/*` vers le service Java `words`
+- il peut aussi appeler le service Python `narrative` pour afficher une histoire générée
 
 ### words
 
-C'est un serveur API REST en Java. Il se compile avec maven.
+Il s’agit d’un backend d’API REST écrit en Java. Il doit être construit avec Maven.
 
-Sur une distribution Debian/Ubuntu, on peut installer Java et maven comme suit :
+Sur une distribution Debian ou Ubuntu, on peut installer Java et Maven ainsi :
 
 ```
-apt-get install maven openjdk-8-jdk
+apt-get install maven openjdk-17-jdk
 ```
 
-Voici la commande qui permet d'invoquer maven pour compiler le programme :
+Comme image de conteneur, une base simple recommandée est :
+
+```
+maven:3.9.9-eclipse-temurin-17
+```
+
+Pour construire le programme, on peut invoquer Maven ainsi :
 
 ```
 mvn verify
 ```
 
-Le résultat est un fichier appelé `words.jar` placé dans le répertoire `target`.
+Le résultat est un fichier nommé `words.jar`, situé dans le répertoire `target`.
 
-Le serveur se lance ensuite avec la commande suivante :
-```
-java -Xmx8m -Xms8m -jar words.jar
-```
+Le serveur doit être démarré avec la commande suivante,
+dans le répertoire où se trouve `words.jar` :
 
-(En se plaçant dans le répertoire où se trouve `words.jar`.)
+```
+java -Xmx64m -Xms64m -jar words.jar
+```
 
 Informations supplémentaires :
 
 - le serveur écoute sur le port 8080
-- pour la compilation il faut les paquetages maven et openjdk-8-jdk
-- pour l'exécution il faut le paquetage openjdk-8-jdk (maven n'est pas nécessaire)
-
+- la compilation nécessite les paquets `maven` et `openjdk-17-jdk`
+- l’exécution nécessite `openjdk-17-jdk` (`maven` n’est pas nécessaire)
 
 ### db
 
-C'est une base de données PostgreSQL.
+Il s’agit d’une base de données PostgreSQL.
 
-La base de donnée doit être initialisée avec le schéma (création de
-la base et des tables) et les données (utilisées par l'application).
+La base doit être initialisée avec le schéma (base et tables)
+et les données utilisées par l’application.
 
-Le fichier `words.sql` contient les commandes SQL nécessaires.
+Le fichier `words.sql` contient toutes les commandes SQL nécessaires
+pour créer le schéma et charger les données.
 
 ```
 # cat words.sql
 CREATE TABLE nouns (word TEXT NOT NULL);
 CREATE TABLE verbs (word TEXT NOT NULL);
 CREATE TABLE adjectives (word TEXT NOT NULL);
+CREATE TABLE stories (
+  story TEXT NOT NULL,
+  model TEXT NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
 INSERT INTO nouns(word) VALUES
   ('cloud'),
@@ -162,37 +193,109 @@ INSERT INTO adjectives(word) VALUES
   ('the deliciøus');
 ```
 
+Les histoires seront ajoutées à l’exécution par le modèle.
+
 Informations supplémentaires :
 
-- il est fortement conseillé d'utiliser l'image officielle PostgreSQL qui se trouve sur le Docker Hub (elle s'appelle `postgres`)
-- sur la [page de l'image officielle](https://hub.docker.com/_/postgres) sur le Docker Hub, vous trouverez une documentation abondante; la section "Initialization scripts" est particulièrement utile pour comprendre comment charger le fichier `words.sql`
-- il est conseillé de protéger l'accès à la base avec un mot de passe, mais dans le cas présent, on acceptera de se simplifier la vie en autorisant toutes les connexions (en positionnant la variable `POSTGRES_HOST_AUTH_METHOD=trust`)
+- nous recommandons fortement d’utiliser l’image officielle PostgreSQL sur Docker Hub (`postgres`)
+- sur la [page de cette image officielle](https://hub.docker.com/_/postgres), la section « Initialization scripts » est particulièrement utile pour comprendre comment charger `words.sql`
+- il est conseillé de protéger l’accès à la base par mot de passe ; ici, pour simplifier l’exercice, on autorise toutes les connexions avec `POSTGRES_HOST_AUTH_METHOD=trust`
+- pour exposer la base en local et l’inspecter, utilisez le port 5432
 
+### narrative
 
-## Exercice 2 : Compose file
+Il s’agit d’une API REST Python qui s’appuie sur les autres services.
+Elle appelle l’API `words` pour récupérer un ensemble de mots générés,
+puis utilise un LLM exposé via Docker Model Runner pour transformer ces mots
+en une courte histoire.
 
-Une fois que les trois images se construisent correctement, vous pouvez
-passer à l'écriture du Compose file. Nous conseillons de placer le Compose
-file à la racine du projet.
+Le serveur doit exposer :
 
-À ce stade, on veut s'assurer que les services communiquent bien
-entre eux, et que l'on peut se connecter à `web` de l'extérieur.
+- `/healthz` pour confirmer que le service fonctionne
+- `/narrative` pour générer une courte histoire
 
-Note : seul le service `web` doit être accessible de l'extérieur.
+Quand une histoire est générée, elle est également stockée dans PostgreSQL
+avec le nom du modèle et la date de création dans la table `stories`.
 
+Informations supplémentaires :
 
-## Exercice 3 : Kubernetes
+- le serveur écoute sur le port 8181
+- il dépend de `words` pour le vocabulaire
+- il dépend du serveur de modèles Docker pour la génération de texte
+- il écrit les histoires générées dans le service `db`
 
-On veut maintenant déployer wordsmith sur Kubernetes, de manière à ce qu'on puisse se connecter à l'interface web depuis l'extérieur.
+Si vous voulez lancer et tester manuellement un modèle avant de l’intégrer
+dans Compose, vous pouvez exécuter :
 
-On va devoir utiliser des images venant d'une *registry*. Pour nous faciliter la tâche, les images sont disponibles sur:
+```bash
+docker model run ai/smollm2
+```
 
-- jpetazzo/wordsmith-db:latest
-- jpetazzo/wordsmith-words:latest
-- jpetazzo/wordsmith-web:latest
+Ou le précharger en arrière-plan :
 
-Rappels utiles pour cet exercice :
+```bash
+docker model run --detach ai/smollm2
+```
 
-- le service web écoute sur le port 80, et on souhaite qu'il soit accessible depuis l'extérieur du cluster
-- le service `words` écoute sur le port 8080
-- le service `db` écoute sur le port 5432
+### Connectez les conteneurs
+
+Créer un réseau
+```docker network create inclass```
+
+Connectez les conteneurs un par un, par exemple la base de données
+
+```docker network connect inclass db```
+
+Les conteneurs DOIVENT avoir les noms suivants pour se connecter de manière transparente, utilisez --name <nom>
+- db
+- words
+- narrative
+
+## Exercice 2 : Compose
+
+Quand les images se construisent correctement, nous pouvons passer
+à l’écriture du fichier Compose. Nous suggérons de placer ce fichier
+à la racine du dépôt.
+
+À ce stade, nous voulons vérifier que les services communiquent bien
+entre eux et que l’on peut se connecter à `web`.
+
+Note : le service `web` doit être exposé.
+
+### Comment Docker Model Runner s’intègre à Docker Compose
+
+Docker Model Runner permet à un service de déclarer directement
+le modèle dont il a besoin dans `compose.yaml`. Compose rend ensuite
+ce modèle disponible au service à l’exécution, au lieu de vous obliger
+à gérer manuellement un conteneur d’inférence séparé.
+
+En pratique, le flux est le suivant :
+
+- déclarer le modèle dans la section `models` au niveau racine
+- attacher ce modèle à un service sous `services.<nom>.models`
+- laisser l’application appeler le point d’accès exposé par Docker Model Runner
+
+Exemple :
+
+```yaml
+services:
+  chat-app:
+    image: my-chat-app
+    models:
+      - llm
+
+models:
+  llm:
+    model: ai/smollm2
+```
+
+Dans ce projet, le service `narrative` suit ce même principe :
+il déclare un modèle LLM dans Compose, puis l’utilise à l’exécution
+pour transformer les mots provenant de l’API `words` en une courte histoire.
+
+## Exercice 3 : Jouer avec Docker Model Server
+
+- changez le modèle pour un modèle plus puissant (attention à la mémoire)
+- faites évoluer le schéma de la base et enregistrez le protagoniste
+- essayez de relier plusieurs histoires entre elles
+- laissez parler votre imagination !

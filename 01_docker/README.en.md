@@ -1,20 +1,26 @@
 # Let's containerize the wordsmith project!
 
-
-The wordsmith project is split into 3 parts:
+The wordsmith project is split into 5 parts:
 
 - web: frontend web server written in Go
+- web2: a Node.js evolution of `web`, with the same core role but a more modern frontend and extra LLM-driven interactions
 - words: REST API written in Java, to query the DB
 - db: PostgreSQL database containing the words to display
+- narrative (new): a Python Rest server that uses LLMs to generate a story
 
 Our goal is to containerize this application.
 
 There will be 3 steps:
 
 1. Write multiple Dockerfiles. to build container images.
-2. Write a Compose file, to run the app locally.
-3. Deploy on Kubernetes.
-
+   1. run the containers independently
+   2. connect them to the same server
+2. Write a Compose file, to automate some the steps (connection)
+   1. add volume to connect static files
+   2. add a volume to persiste the database locally
+   3. improve the Dockerfile of words for avoiding multiple rebuild with maven
+3. Modify the app further
+   1. use your creativity to improve the app
 
 ## Exercise 1: Dockerfiles
 
@@ -28,13 +34,12 @@ The following paragraphs describe the installation instructions
 for each service.
 
 Note: in this first exercise, we only want to build the images
-and check that they start correctly (`web` and `words` should display
+and check that they start correctly (`web` and `words` and `narrative` should display
 a short message to indicate that they're running), but we're not
 trying to run the whole application or to connect to the services.
 This will come later.
 
-
-### web
+### web (legacy, UI)
 
 This is a web server written in Go. To compile Go code, we can
 use the `golang` official image, or install Go packages in
@@ -64,6 +69,24 @@ Additional information:
 - the server listens on port 80
 - the Go compiler is only useful to build the server (not to run it)
 
+### web2
+
+This is the Node.js evolution of the original `web` service.
+It keeps the same responsibility as `web`: serving the frontend
+and proxying requests to backend services. The difference is that
+it provides a newer UI and can call newer APIs such as the
+`narrative` service to display LLM-generated content.
+
+![preview](preview.png)
+
+
+Additional information:
+
+- the server listens on port 8000
+- it serves static files from `public`
+- it proxies `/words/*` requests to the Java `words` service
+- it can also call the Python `narrative` service to show a generated story
+
 
 ### words
 
@@ -72,7 +95,13 @@ This is a REST API backend written in Java. It should be built with maven.
 On a Debian or Ubuntu distribution, we can install Java and maven like this:
 
 ```
-apt-get install maven openjdk-8-jdk
+apt-get install maven openjdk-17-jdk
+```
+
+For the container image, a simple recommended base is:
+
+```
+maven:3.9.9-eclipse-temurin-17
 ```
 
 To build the program, we can invoke maven like this:
@@ -87,15 +116,14 @@ The server should be started by running the following command,
 in the directory where `words.jar` is located:
 
 ```
-java -Xmx8m -Xms8m -jar words.jar
+java -Xmx64m -Xms64m -jar words.jar
 ```
 
 Additional information:
 
 - the server listens on port 8080
-- compilation requires packages `maven` and `openjdk-8-jdk`
-- execution requires package `openjdk-8-jdk` (`maven` is not necessary)
-
+- compilation requires packages `maven` and `openjdk-17-jdk`
+- execution requires package `openjdk-17-jdk` (`maven` is not necessary)
 
 ### db
 
@@ -112,6 +140,11 @@ the schema and load the data.
 CREATE TABLE nouns (word TEXT NOT NULL);
 CREATE TABLE verbs (word TEXT NOT NULL);
 CREATE TABLE adjectives (word TEXT NOT NULL);
+CREATE TABLE stories (
+  story TEXT NOT NULL,
+  model TEXT NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
 INSERT INTO nouns(word) VALUES
   ('cloud'),
@@ -166,6 +199,8 @@ INSERT INTO adjectives(word) VALUES
   ('the deliciøus');
 ```
 
+Stories will be added at runtime by the model.
+
 Additional information:
 
 - we strongly suggest using the official PostgreSQL image that can
@@ -174,6 +209,59 @@ Additional information:
   will find a lot of documentation; the section "Initialization scripts"
   is particularly useful to understand how to load `words.sql`
 - it is advised to set up password authentication for the database; but in this case, to make our lives easier, we will simply authorize all connections (by setting environment variable `POSTGRES_HOST_AUTH_METHOD=trust`)
+- to expose the database on local network and inspect, use port 5432
+
+### narrative
+
+This is a Python REST API that builds on top of the other services.
+It calls the `words` API to fetch a set of generated words, then
+uses an LLM exposed through Docker Model Runner to turn those words
+into a short story.
+
+The server should expose:
+
+- `/healthz` to confirm that the service is running
+- `/narrative` to generate a short story
+
+When a story is generated, it is also stored in PostgreSQL together
+with the model name and the creation date in the `stories` table.
+
+Additional information:
+
+- the server listens on port 8181
+- it depends on `words` for vocabulary
+- it depends on the Docker model server for text generation
+- it writes generated stories to the `db` service
+
+If you want to manually start and test a model before wiring it into
+Compose, you can run:
+
+```bash
+docker model run ai/smollm2
+```
+
+Or preload it in the background:
+
+```bash
+docker model run --detach ai/smollm2
+```
+
+### Connect the containers
+
+create a network
+
+```docker network create inclass```
+
+connect the containers one by one, for instance the db
+
+```docker network connect inclass db```
+
+Containers MUST have the following names to seamlesly connect, use --name <name>
+
+- db
+- words
+- narrative
+
 
 ## Exercise 2: Compose file
 
@@ -186,23 +274,41 @@ together, and that we can connect to `web`.
 Note: the `web` service should be exposed.
 
 
-## Exercise 3: Play With Docker Compose
+### How Docker Model Runner Fits In Docker Compose
 
-- create a volume that allows the modification the static website data
-- verify that the database contains all the data
-- expose the database also and connect externally
+Docker Model Runner lets a service declare which model it needs directly
+in `compose.yaml`. Compose then makes that model available to the service
+at runtime, instead of forcing you to manage a separate inference container
+by hand.
 
-### Utils
+In practice, the workflow is:
 
-We will need to use images hosted on a registry. For our convenience, the images are available on:
+- declare the model in the top-level `models` section
+- attach that model to a service under `services.<name>.models`
+- let the application call the model endpoint exposed by Docker Model Runner
 
-- jpetazzo/wordsmith-db:latest
-- jpetazzo/wordsmith-words:latest
-- jpetazzo/wordsmith-web:latest
+Example:
 
-Useful reminders for this exercise:
+```yaml
+services:
+  chat-app:
+    image: my-chat-app
+    models:
+      - llm
 
-- service `web` is listening on port 80, and we want it to be reachable
-  from outside the cluster
-- service `words` is listening on port 8080
-- service `db` is listening on port 5432
+models:
+  llm:
+    model: ai/smollm2
+  
+```
+
+For this project, the `narrative` service uses that same pattern: it declares
+an LLM model in Compose, then uses that model at runtime to turn the words
+coming from the `words` API into a short story.
+
+## Exercise 3: Play With Docker Model Server
+
+- change the model with one more powerful (careful with memory)
+- expand the database schema and save the protagonist
+- try to link multiple stories
+- immagination is your limit !

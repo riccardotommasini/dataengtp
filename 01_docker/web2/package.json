@@ -1,0 +1,13 @@
+{
+  "name": "wordsmith-web2",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Node.js rebuild of the Wordsmith web app",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+REQUIRED_IMAGES=(
+  "postgres"
+  "maven:3.9.9-eclipse-temurin-17"
+  "eclipse-temurin:17-jre"
+  "node:20-alpine"
+  "python:3.12-slim"
+)
+
+REQUIRED_MODEL="ai/llama3.2"
+
+log() {
+  printf '\n[%s] %s\n' "$(date '+%H:%M:%S')" "$1"
+}
+
+require_command() {
+  if ! command -v "$1" >/dev/null 2>&1; then
+    printf 'Missing required command: %s\n' "$1" >&2
+    exit 1
+  fi
+}
+
+choose_platform() {
+  printf '\nSelect your Docker target platform:\n'
+  printf '  1) linux/arm64 (Apple Silicon / ARM) [recommended]\n'
+  printf '  2) linux/amd64 (Intel / x86_64)\n'
+  printf '  3) Keep Docker default\n'
+  printf 'Choice [1/2/3]: '
+
+  read -r platform_choice
+
+  case "${platform_choice:-1}" in
+    1)
+      export DOCKER_DEFAULT_PLATFORM=linux/arm64
+      ;;
+    2)
+      export DOCKER_DEFAULT_PLATFORM=linux/amd64
+      ;;
+    3)
+      unset DOCKER_DEFAULT_PLATFORM || true
+      ;;
+    *)
+      printf 'Unknown choice: %s\n' "${platform_choice}" >&2
+      exit 1
+      ;;
+  esac
+
+  if [[ -n "${DOCKER_DEFAULT_PLATFORM:-}" ]]; then
+    log "Using DOCKER_DEFAULT_PLATFORM=${DOCKER_DEFAULT_PLATFORM}"
+  else
+    log "Using Docker default platform"
+  fi
+}
+
+log "Checking Docker CLI"
+require_command docker
+
+if ! docker info >/dev/null 2>&1; then
+  printf 'Docker does not seem to be running. Please start Docker and try again.\n' >&2
+  exit 1
+fi
+
+log "Checking Docker Compose"
+docker compose version >/dev/null
+
+log "Checking Docker Model Runner"
+docker model version >/dev/null
+
+choose_platform
+
+for image in "${REQUIRED_IMAGES[@]}"; do
+  log "Pulling image ${image}"
+  docker pull "${image}"
+done
+
+log "Pulling model ${REQUIRED_MODEL}"
+docker model pull "${REQUIRED_MODEL}"
+
+cat <<'EOF'
+
+ __   __  _______  __   __    _______  ______    _______ 
+|  | |  ||       ||  | |  |  |   _   ||    _ |  |       |
+|  |_|  ||   _   ||  | |  |  |  |_|  ||   | ||  |    ___|
+|       ||  | |  ||  |_|  |  |       ||   |_||_ |   |___ 
+|_     _||  |_|  ||       |  |       ||    __  ||    ___|
+  |   |  |       ||       |  |   _   ||   |  | ||   |___ 
+  |___|  |_______||_______|  |__| |__||___|  |_||_______|
+
+                   YOU ARE ALL SET!
+
+EOF

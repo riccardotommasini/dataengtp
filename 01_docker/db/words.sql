@@ -1,6 +1,12 @@
 CREATE TABLE nouns (word TEXT NOT NULL);
 CREATE TABLE verbs (word TEXT NOT NULL);
 CREATE TABLE adjectives (word TEXT NOT NULL);
+CREATE TABLE stories (
+  story TEXT NOT NULL,
+  model TEXT NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 
 INSERT INTO nouns(word) VALUES
   ('cloud'),

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wordsmith Rebuilt</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero__badge">Node.js Rebuild</div>
+      <img class="hero__logo" src="/images/logo.svg" alt="Wordsmith logo">
+      <h1>Words, now with a fresh runtime.</h1>
+      <p class="hero__copy">
+        The original Wordsmith experience, rebuilt as a Node.js app that still fans out
+        requests to the Java word service and shows which backend instance answered.
+      </p>
+      <div class="hero__actions">
+        <button class="hero__button" id="refresh-button" type="button">Roll A New Phrase</button>
+        <button class="hero__button hero__button--secondary" id="story-button" type="button">Generate Story</button>
+      </div>
+    </header>
+
+    <main class="board" id="board" aria-live="polite">
+      <section class="phrase-row phrase-row--double">
+        <article class="brick brick--adjective" data-word-slot="adjective1">
+          <p class="brick__label">Adjective</p>
+          <h2 class="brick__word">Loading...</h2>
+          <p class="brick__source">Finding backend...</p>
+        </article>
+        <article class="brick brick--noun" data-word-slot="noun1">
+          <p class="brick__label">Noun</p>
+          <h2 class="brick__word">Loading...</h2>
+          <p class="brick__source">Finding backend...</p>
+        </article>
+      </section>
+
+      <section class="phrase-row phrase-row--single">
+        <article class="brick brick--verb brick--wide" data-word-slot="verb">
+          <p class="brick__label">Verb</p>
+          <h2 class="brick__word">Loading...</h2>
+          <p class="brick__source">Finding backend...</p>
+        </article>
+      </section>
+
+      <section class="phrase-row phrase-row--double">
+        <article class="brick brick--adjective" data-word-slot="adjective2">
+          <p class="brick__label">Adjective</p>
+          <h2 class="brick__word">Loading...</h2>
+          <p class="brick__source">Finding backend...</p>
+        </article>
+        <article class="brick brick--noun" data-word-slot="noun2">
+          <p class="brick__label">Noun</p>
+          <h2 class="brick__word">Loading...</h2>
+          <p class="brick__source">Finding backend...</p>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <img class="background-homes" src="/images/homes.png" alt="">
+  <div class="story-modal hidden" id="story-modal" aria-hidden="true">
+    <div class="story-modal__backdrop" id="story-backdrop"></div>
+    <div class="story-modal__panel" role="dialog" aria-modal="true" aria-labelledby="story-title">
+      <button class="story-modal__close" id="story-close" type="button" aria-label="Close story popup">×</button>
+      <p class="story-modal__eyebrow">Narrative API</p>
+      <h2 class="story-modal__title" id="story-title">Generated Story</h2>
+      <p class="story-modal__body" id="story-body">Loading story...</p>
+    </div>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+[submodule "dockertp"]
+	path = dockertp
+	url = git@github.com:riccardotommasini/dockertp.git
