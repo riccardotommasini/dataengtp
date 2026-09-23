@@ -1,4 +1,10 @@
 .DS_Store
 
+# Jupyter autosave state (the old "./**/" prefix matched nothing)
+**/.ipynb_checkpoints/
 
-./**/.ipynb_checkpoints/ 
+# RedisInsight local session state
+06_redis/connection.json
+
+# Neo4j bind-mounted database state (07_neo4j/compose.yml)
+07_neo4j/neo4j/

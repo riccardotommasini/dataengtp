@@ -32,7 +32,7 @@
 
 ### [[Document Databases]] with [[MongoDB]]
 
-### [[Graph Theory]] and [[../assets/lectures/OT72022-INSA/Graph Databases]] 
+### [[Graph Theory]] and [[concepts/Graph Databases|Graph Databases]] 
 
 # [[Data Pipeline (Intro)]]
 

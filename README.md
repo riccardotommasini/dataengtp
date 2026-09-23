@@ -53,11 +53,11 @@ After a general overview of the data lifecycle, the course deeps into an (**opin
 
 At the core of the course learning outcome there is the **ability to design, build, and maintain** a data pipelines.
 
-**Technological Choice (May 2023): Apache Airlfow**
+**Technological Choice (May 2023): Apache Airflow**
 
-[[Why Apache Airfllow?]]
+[[Why Apache Airflow?]]
 
-Regarding the technological stack of the course, modulo the choice of the lecturer, the following systems are encourages.
+Regarding the technological stack of the course, modulo the choice of the lecturer, the following systems are encouraged.
 
 - Data Formats 
 	- JSON, CSV, Avro

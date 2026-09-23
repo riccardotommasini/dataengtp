@@ -359,7 +359,7 @@ services:
         condition: service_completed_successfully
   pgadmin:
     container_name: pgadmin_airflow
-    image: elestio/pgadmin
+    image: elestio/pgadmin:REL-9_18
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}

@@ -1,4 +1,4 @@
-# 00 - Data Preparation
+# 08 - Data Preparation
 
 Data wrangling and cleaning with pandas. This is the starting point of the
 course: it runs entirely in Jupyter, with no database or Docker stack required.
@@ -29,7 +29,7 @@ with the course packages, start any of those stacks, e.g.:
 cd ../05_mongodb && docker compose up --build notebook
 ```
 
-Then open <http://localhost:8888> and browse to `work/00_data_preparation/`.
+Then open <http://localhost:8888> and browse to `work/08_data_preparation/`.
 
 Alternatively, run them in any local Jupyter with the packages listed in
 `notebook/requirements.txt`.

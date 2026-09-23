@@ -1,12 +1,17 @@
-numpy == 1.26.4
+# The base image (quay.io/jupyter/datascience-notebook) already ships Python
+# 3.13 with pandas and numpy. Do NOT pin those here: pinning pandas/numpy to
+# older releases forces a source build on 3.13 and the image fails to build.
+# Only the course-specific clients are pinned below.
 
+pymongo==4.10.1
+redis==5.2.1
 
-pymongo
-redis
-py2neo
+# py2neo is END OF LIFE (last release 2021.2.4) and only speaks Neo4j 4.x/5.x
+# bolt -- this is why 07_neo4j pins neo4j:5.26 rather than the current 2026.x.
+# Migrating the 07_neo4j notebooks to the official `neo4j` driver would let
+# both move forward.
+py2neo==2021.2.4
 
-rdflib
-
-pandasql
-
-psycopg2-binary
+rdflib==7.1.1
+pandasql==0.7.3
+psycopg2-binary==2.9.10

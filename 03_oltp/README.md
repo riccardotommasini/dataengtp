@@ -172,7 +172,7 @@ You can use the same containers from last practice session. In case you don't, p
     services:
       db:
         container_name: db
-        image: postgres
+        image: postgres:18
         environment:
           POSTGRES_USER: ${POSTGRES_USER}
           POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

@@ -2,7 +2,7 @@ include:
   - ../compose-notebook.yml 
 services:
   neo:
-    image: neo4j
+    image: neo4j:5.26
     ports:
         - "${NEO_UI_PORT}:7474"
         - "${NEO_BOLT_PORT}:7687"
@@ -16,4 +16,4 @@ services:
 
 networks:
   Practice:
-    name: otlp_network
+    name: neo4j_network

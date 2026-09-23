@@ -1,7 +1,7 @@
 services:
   db:
     container_name: db_oltp
-    image: postgres
+    image: postgres:18
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -18,7 +18,7 @@ services:
       - Practice
   pgadmin:
     container_name: pgadmin_oltp
-    image: elestio/pgadmin
+    image: elestio/pgadmin:REL-9_18
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}

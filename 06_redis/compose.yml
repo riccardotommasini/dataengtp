@@ -2,14 +2,14 @@ include:
   - ../compose-notebook.yml 
 services:
   redis:
-    image: redis:latest
+    image: redis:8.10
     ports:
       - "${REDIS_PORT}:6379"
     networks:
       - Practice
 
   insight:
-    image: redis/redisinsight:latest
+    image: redis/redisinsight:3.8
     ports:
       - "${REDISINSIGHT_PORT}:5540"
     depends_on:
@@ -19,4 +19,4 @@ services:
 
 networks:
   Practice:
-    name: redis_newtwork
+    name: redis_network
