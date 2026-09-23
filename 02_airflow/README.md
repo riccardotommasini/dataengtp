@@ -66,6 +66,7 @@ docker-compose up -d
 
 A gentle, end-to-end walkthrough of modern Airflow 3.x patterns. It defines a DAG with a fixed `start_date`, `catchup=False`, and a linear chain that (1) fetches a file, (2) converts it, (3) filters it, (4) “loads” it, and (5) cleans up. It highlights current imports (from `airflow.providers.standard` where applicable), Jinja templating (e.g., `{{ ds_nodash }}` / `{{ data_interval_* }}`), retries, and trigger rules.
 
+**AAA*** new link "https://www.riccardotommasini.com/assets/files/spreadsheet.xlsx" !
 **Steps**
 
 1. **Prereqs:** Airflow ≥ 3.x. Work in `first_dag_stub.py` into your `dags/` folder.
